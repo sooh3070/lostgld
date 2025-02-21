@@ -1,0 +1,52 @@
+.gauge-chart-container {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .gauge-chart-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .gauge-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+  }
+  
+  .gauge-path-background {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 20;
+  }
+  
+  .gauge-path-foreground {
+    fill: none;
+    stroke: #82ca9d;
+    stroke-width: 20;
+    transition: stroke-dashoffset 1.5s ease-in-out; /* 애니메이션 적용 */
+  }
+  
+  .gauge-percentage {
+    text-anchor: middle;
+    font-size: 18px;
+    fill: #333;
+    font-weight: bold;
+  }
+  
+  .gauge-chart-info {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #666;
+  }
+  .gauge-status {
+    text-anchor: middle;
+    font-size: 14px;
+    fill: #666;
+    font-weight: bold;
+  }
+  
+  

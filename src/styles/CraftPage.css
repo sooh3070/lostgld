@@ -1,0 +1,71 @@
+.craft-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-top: 120px;
+    text-align: left;
+  }
+  
+  
+  .craft-input-group {
+    font-family: 'SUIT Variable', sans-serif;
+    display: flex;
+    justify-content: flex-end;
+    align-items: left;
+    margin-bottom: 0px;
+  }
+
+  .craft-input-group h5{
+    text-align: left;
+    margin-right: auto;
+  }
+  
+  .craft-input-label {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #222222;
+  }
+  
+  .craft-input-field {
+    width: 100px;
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .craft-table-container {
+    margin-top: 20px;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #888;
+  }
+  
+  @media (max-width: 768px) {
+    .craft-page {
+      max-width: 100%;
+      padding: 20px;
+      margin-top: 60px;
+    }
+  
+    .craft-input-group {
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+  
+    .craft-input-field {
+      width: 40px;
+    }
+  }
+  

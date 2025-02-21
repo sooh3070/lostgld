@@ -1,0 +1,80 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Home Page -->
+  <url>
+    <loc>https://www.lostgld.com/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Life Data Page -->
+  <url>
+    <loc>https://www.lostgld.com/life-data</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- PVE Data Page -->
+  <url>
+    <loc>https://www.lostgld.com/pve-data</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Life Data Info Page -->
+  <url>
+    <loc>https://www.lostgld.com/life-data/info</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- PVE Data Info Page -->
+  <url>
+    <loc>https://www.lostgld.com/pve-data/info</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Life Tool Lumbering Page -->
+  <url>
+    <loc>https://www.lostgld.com/life-tool/lumbering</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Life Tool Lumber Info Page -->
+  <url>
+    <loc>https://www.lostgld.com/life-tool/lumber/info</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Life Tool Archaeology Page -->
+  <url>
+    <loc>https://www.lostgld.com/life-tool/archaeology</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lostgld.com/life-tool/mining</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lostgld.com/life-tool/hunting</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lostgld.com/life-tool/gathering</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lostgld.com/life-tool/fishing</loc>
+    <priority>0.9</priority>
+  </url>
+
+
+  <!-- Craft Page -->
+  <url>
+    <loc>https://www.lostgld.com/craft</loc>
+    <priority>0.9</priority>
+  </url>
+</urlset>

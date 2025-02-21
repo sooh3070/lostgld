@@ -1,0 +1,199 @@
+.conversion-page {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    font-size: 17px;
+    font-family: 'Cafe24 SsurroundAir', sans-serif;
+    font-weight: 500;
+  }
+  
+  .conversion-title {
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #000000;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    margin-bottom: 0px;
+  }
+  
+  /* 드롭다운 스타일 */
+  .activity-selection {
+    margin-bottom: 20px;
+  }
+  
+  .activity-selection select {
+    width: 300px;
+    padding: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .activity-selection select:hover {
+    border-color: #88c1a0;
+  }
+  
+  .activity-selection label {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  /* 모바일 반응형 스타일 */
+  @media (max-width: 768px) {
+    .conversion-page {
+      font-size: 14px;
+    }
+    .activity-selection select {
+      width: 100%;
+      font-size: 14px;
+    }
+    .material-input input {
+      width: 80px;
+    }
+
+  }
+  
+  .material-input h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .material-input label {
+    display: block;
+    margin: 5px 20px 10px 0px ;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+  }
+  
+  .material-input input {
+    padding: 8px;
+    font-size: 16px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px;
+  }
+
+  .calculate-button-container {
+    display: flex; /* 가로 배치 */
+    justify-content: flex-start; /* 기본 정렬 왼쪽 */
+    align-items: center; /* 수직 가운데 정렬 */
+  }
+  
+  .calculate-button {
+    margin-left: auto; /* 오른쪽으로 이동 */
+    margin-top: 10px;
+    padding: 8px 15px ;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background-color: #88c1a0;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .calculate-button:hover {
+    background-color: #ffb01e;
+  }
+  
+  .conversion-result-container {
+    display: flex;
+    flex-direction: row; /* 가로 배치 */
+    justify-content: space-between; /* 좌우 간격 조정 */
+    align-items: flex-start; /* 상단 정렬 */
+    align-items: stretch; /* 세로 높이를 동일하게 */
+    gap: 20px; /* 섹션 간 간격 */
+  }
+  
+  .conversion-result,
+  .conversion-steps {
+    flex: 1; /* 동일 비율로 공간 차지 */
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #eeeeee;
+  }
+  .conversion-step, .conversion-next-step {
+    display: flex; /* 플렉스 레이아웃 */
+    align-items: center; /* 아이템 정렬 */
+    margin-bottom: 10px; /* 각 줄 간 간격 */
+    flex-wrap: wrap; /* 아이템이 넘치면 줄바꿈 */
+  }
+  
+  .conversion-step span, .conversion-next-step span {
+    margin-right: 5px; /* 요소 간 간격 */
+  }
+  .conversion-step span.strong {
+    font-size: 15px;
+    font-weight: 900;
+    color: #000000;
+    margin-right: 5px; /* 요소 간 간격 */
+  }
+  
+  .conversion-result h3,
+  .conversion-steps h3 {
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  .conversion-result p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+
+  .conversion-steps img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  
+  .material-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .material-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 5px;
+    vertical-align: middle;
+    object-fit: cover;
+  }
+  
+  .fusion-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-radius: 10%;
+  }
+  
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .conversion-result-container {
+      flex-direction: column; /* 세로 배치 */
+    }
+  
+    .conversion-result,
+    .conversion-steps {
+      width: 90%; /* 각 섹션 너비를 100%로 확장 */
+      padding: 5px;
+      margin-bottom: 20px; /* 세로 간격 추가 */
+    }
+  }
+  

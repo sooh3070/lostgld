@@ -1,0 +1,165 @@
+.craft-list {
+  margin: 20px 0;
+  font-family: 'SUIT Variable', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.craft-list-item {
+  font-family: 'SUIT Variable', sans-serif;
+  border: 1px solid #a3a3a3;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.craft-list-item:hover {
+  background-color: #f3f7f2; 
+}
+
+.list-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.table-icon {
+  width: 24px; /* 아이콘 크기 */
+  height: 24px;
+  margin-right: 8px; /* 아이콘과 텍스트 사이의 간격 */
+}
+
+.list-name {
+  flex: 1;
+}
+.list-price1,
+.list-price,
+.list-profit,
+.list-cost {
+  margin-left: 40px;
+}
+
+.detail-table {
+  background-color: #f9f9f9;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+}
+
+.detail-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail-table th,
+.detail-table td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.selected {
+  background-color: #f9f9f9 !important;
+  color: #000000 !important; /* 공통 텍스트 색상 */
+}
+
+.detail-row.row-3,
+.detail-row.row-4,
+.detail-row.row-5,
+.detail-row.row-6 {
+  background-color: #ffffff; /* 공통 배경색 */
+  color: #959595; /* 공통 텍스트 색상 */
+}
+
+@media (max-width: 768px) {
+  .craft-list {
+      margin: 15px 0;
+      font-size: 15px; /* 글자 크기 줄이기 */
+  }
+
+  .craft-list-item {
+      padding: 8px; /* 아이템 패딩 줄이기 */
+      font-size: 14px; /* 아이템 텍스트 크기 줄이기 */
+  }
+
+  .list-header {
+      flex-wrap: wrap; /* 요소가 화면 밖으로 나가지 않도록 줄 바꿈 */
+  }
+
+  .list-icon {
+      width: 30px; /* 아이콘 크기 조정 */
+      height: 30px;
+      margin-right: 8px;
+  }
+
+  .table-icon {
+      width: 20px; /* 테이블 아이콘 크기 조정 */
+      height: 20px;
+      margin-right: 6px;
+  }
+
+  .list-price,
+  .list-price1,
+  .list-profit,
+  .list-cost {
+      margin-left: 20px; /* 여백 줄이기 */
+  }
+
+  .detail-table table {
+      font-size: 12px; /* 테이블 텍스트 크기 줄이기 */
+  }
+
+  .detail-table th,
+  .detail-table td {
+      padding: 6px; /* 테이블 셀 패딩 줄이기 */
+  }
+}
+
+@media (max-width: 480px) {
+  .list-header {
+      flex-direction: column; /* 작은 화면에서는 요소를 수직으로 정렬 */
+      align-items: flex-start;
+  }
+
+  .list-name {
+      margin-bottom: 5px; /* 텍스트 여백 추가 */
+  }
+
+  .list-price,
+  .list-price1,
+  .list-profit,
+  .list-cost {
+      margin-left: 0; /* 여백 제거 */
+  }
+
+  .craft-list-item {
+      padding: 6px; /* 더 작은 패딩 */
+      font-size: 13px; /* 더 작은 텍스트 */
+  }
+
+  .list-icon {
+      width: 25px; /* 더 작은 아이콘 크기 */
+      height: 25px;
+  }
+
+  .table-icon {
+      width: 18px; /* 테이블 아이콘 크기 줄이기 */
+      height: 18px;
+  }
+
+  .detail-table table {
+      font-size: 10px; /* 테이블 텍스트 크기 줄이기 */
+  }
+
+  .detail-table th,
+  .detail-table td {
+      padding: 4px; /* 더 작은 셀 패딩 */
+  }
+}

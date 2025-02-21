@@ -1,0 +1,41 @@
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .default-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #88c1a0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .default-button:hover {
+    background-color: #ffb01e;
+  }
+  
+  @media (max-width: 768px) {
+  
+    .button-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .default-button {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #88c1a0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+  }

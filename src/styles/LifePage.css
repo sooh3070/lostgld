@@ -1,0 +1,121 @@
+/* 전체 페이지 스타일 */
+.efficiency-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-top: 120px;
+    text-align: right;
+  }
+  
+  h1 {
+    margin-top: 0px;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  h5 {
+    font-family: 'SUIT Variable', sans-serif;
+    margin-top: 5px;
+    text-align: left;
+    margin-right: auto;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 20px;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    color: #4e66cf;
+  }
+
+  .button-group {
+    display: flex; /* 버튼들을 가로로 배치 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    gap: 15px; /* 버튼 사이의 간격 조정 */
+    margin-bottom: 0px; /* 아래쪽 여백 추가 */
+    margin-top: 10px; /* 아래쪽 여백 추가 */
+  }
+
+  .edit-button,
+  .reset-button,
+  .sort-button {
+    display: inline-block;
+    background-color: #88c1a0; /* 버튼 색상 */
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    color: #FFFFFF; /* 텍스트 색상 */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-button:hover,
+  .reset-button:hover,
+  .sort-button:hover {
+    background-color: #ffb01e; /* 호버 시 버튼 색상 */
+  }
+  
+
+  .input-field {
+    width: 80px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+
+  .highlight-input {
+    background-color: #f9ffeb; /* 배경색 강조 */
+    font-weight: bold; /* 텍스트 굵게 */
+  }
+
+  .info-icon {
+    font-size: 20px;
+    color: #4e66cf;
+    text-decoration: none; /* 밑줄 제거 */
+    margin-left: 5px;
+  }
+  
+  .info-icon:hover {
+    color: #ffb01e; /* 호버 시 강조 색상 */
+    cursor: pointer; /* 손 모양 커서 */
+  }
+
+@media (max-width: 768px) {
+  .efficiency-page {
+    margin-top: 120px;
+    max-width: 100%; /* 페이지가 화면 전체를 차지하도록 설정 */
+    margin: 0 auto;
+    margin-top: 60px;
+    padding-left: 2px ; /* 내부 여백 최소화 */
+    padding-right: 2px ; /* 내부 여백 최소화 */
+    padding-top: 40px; /* 내부 여백 최소화 */
+    border-radius: 0px; /* 둥근 모서리 제거 */
+  }
+
+  h1 {
+    margin-top: 0px;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+}
+  
+  
+  

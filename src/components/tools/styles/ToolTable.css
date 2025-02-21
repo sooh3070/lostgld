@@ -1,0 +1,81 @@
+/* 기본 테이블 스타일 */
+.tool-table {
+  width: 60%; /* 기본 너비 */
+  background: #ffffff;
+  border-radius: 5px;
+  border: 2px solid #bdbdbd;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: sans-serif;
+}
+
+.tool-table-header {
+  background: #e6e6e645;
+  display: flex;
+  justify-content: space-between; /* 기존의 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  align-items: center; /* 셀 안에서 수직 중앙 정렬 */
+  font-family: 'SUIT Variable', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 10px;
+  padding-left: 21px;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+.tool-table-row {
+  display: flex;
+  border-bottom: 1px solid #bdbdbd;
+  align-items: center;
+}
+
+.tool-table-cell {
+  flex: 1;
+  font-family: sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  padding: 8px;
+  text-align: left;
+  margin-left: 15px;
+}
+
+.tool-table-cell input {
+  width: 70%;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: right;
+}
+
+.gray-text {
+  color: rgb(77, 77, 77);
+}
+
+/* ===== 모바일용 스타일 ===== */
+@media (max-width: 768px) {
+  .tool-table {
+    width: 99%; /* 테이블이 화면 너비를 가득 채우도록 */
+    border-radius: 0; /* 둥근 모서리 제거 */
+    margin-bottom: 10px; /* 테이블 간 여백 축소 */
+    margin-left: 2px; /* 테이블 간 여백 축소 */
+    margin-right: 2px; /* 테이블 간 여백 축소 */
+  }
+
+  .tool-table-header {
+    font-size: 15px; /* 헤더 글씨 크기 줄이기 */
+    padding: 8px; /* 내부 여백 축소 */
+  }
+
+  .tool-table-cell {
+    font-size: 15px; /* 셀 글씨 크기 줄이기 */
+    padding: 10px; /* 셀 내부 여백 줄이기 */
+    margin-left: 5px; /* 좌측 간격 축소 */
+  }
+
+  .tool-table-cell input {
+    width: 80%; /* 입력 필드가 셀의 대부분을 차지 */
+    font-size: 15px; /* 입력 필드 글씨 크기 줄이기 */
+    padding: 2px; /* 입력 필드 내부 여백 줄이기 */
+  }
+}

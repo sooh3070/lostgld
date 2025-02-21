@@ -1,0 +1,102 @@
+.life-tool-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 20px;
+  margin-top: 120px;
+  text-align: left;
+}
+
+.tool-selector {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  align-items: center; /* 세로 가운데 정렬 */
+  gap: 10px; /* 라벨과 드롭다운 간 간격 */
+  margin-bottom: 0px;
+}
+
+.tool-selector label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tool-link {
+  text-decoration: none;
+  background-color: #4e66cf;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.tool-link.active {
+  background-color: #ffb01e;
+}
+
+.tool-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.tool-dropdown {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.text-info {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .life-tool-page {
+    margin-top: 120px;
+    max-width: 100%; /* 페이지가 화면 전체를 차지하도록 설정 */
+    margin: 0 auto;
+    margin-top: 60px;
+    padding-left: 2px ; /* 내부 여백 최소화 */
+    padding-right: 2px ; /* 내부 여백 최소화 */
+    padding-top: 40px; /* 내부 여백 최소화 */
+    border-radius: 0px; /* 둥근 모서리 제거 */
+  }
+
+  h1 {
+    margin-top: 0px;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    font-size: 23px;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-left: 10px;
+  }
+  .text-info {
+    font-family: sans-serif;
+    font-size: 10px;
+  }
+
+  .tool-selector {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 10px; /* 라벨과 드롭다운 간 간격 */
+    margin-bottom: 10px;
+  }
+  
+  .tool-selector label {
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .tool-dropdown {
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+}

@@ -1,0 +1,184 @@
+/* 전체 페이지 스타일 */
+.home-page {
+    max-width: 1000px; /* 컨테이너 크기 */
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff; /* 배경 흰색 유지 */
+    border-radius: 20px;
+    margin-top: 120px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  }
+  
+/* 상단 타이틀 */
+  .home-header {
+    text-align: center;
+     margin-bottom: 40px;
+     margin-top: 20px;
+  }
+  
+  .home-title {
+    font-size: 50px;
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    font-weight: bold;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* 텍스트와 아이콘 사이의 간격 */
+}
+
+.home-subtitle {
+  font-size: 14px; /* 작게 표시 */
+  font-family: 'Cafe24 Ssurround', sans-serif;
+  color: #666666; /* 연한 회색 */
+  margin-top: 5px; /* 제목과의 간격 */
+}
+
+.home-subtitle2 {
+  font-size: 14px; /* 작게 표시 */
+  font-family: 'SUIT Variable', sans-serif;
+  color: #000000; /* 연한 회색 */
+  margin-top: 0px; /* 제목과의 간격 */
+  font-weight: 600;
+}
+
+.home-subtitle3{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.title-icon {
+    width: 40px; /* 아이콘 크기 */
+    height: 40px;
+}
+ 
+  /* 테이블 스타일 */
+  .home-table {
+    width: 90%; /* 테이블 크기 줄임 */
+    margin: 0 auto; /* 중앙 정렬 유지 */
+    border-collapse: collapse;
+    font-size: 18px;
+    margin-top: 30px;
+    text-align: center; /* 모든 텍스트 중앙 정렬 */
+  }
+  
+  .home-table th,
+  .home-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+  }
+  
+  .home-table th {
+    background-color: #f1f1f1; /* 헤더 배경색 */
+    font-family: 'Cafe24 Ssurround', sans-serif; /* 글꼴 적용 */
+    font-weight: bold;
+    text-align: center;
+    color: #000000; /* 헤더 텍스트 색상 */
+  }
+  
+  .home-table tr:nth-child(even) {
+    background-color: #ffffff; /* 짝수행 배경색 */
+  }
+  
+ 
+  .home-table td {
+    text-align: center;
+    color: #000000; /* 셀 텍스트 색상 */
+    font-family: 'Cafe24 Ssurround', sans-serif; /* 글꼴 적용 */
+  }
+
+/* 새로운 컨테이너: 왼쪽 & 오른쪽을 나누는 박스 */
+.home-subtitle-container {
+  display: inline-flex;
+  justify-content: space-between; /* 좌우 정렬 */
+  gap: 20px; /* 좌우 간격 */
+  margin-top: 30px;
+  width: calc(100% - 110px); /* 좌우 여백만 추가 */
+}
+
+/* 왼쪽 박스 - 업데이트 내역 */
+.home-subtitle-left {
+  flex: 1;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #666666;; /* 너비 1px, 실선, 검정색 */
+  text-align: left;
+  min-width: 30%; /* 최소 너비 설정 */
+  
+}
+
+/* 오른쪽 박스 - 후원 & 문의 */
+.home-subtitle-right {
+  flex: 1;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #666666; /* 너비 1px, 실선, 검정색 */
+  text-align: left;
+  min-width: 30%; /* 최소 너비 설정 */
+  max-height: 200px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 수직 스크롤 추가 */
+  overflow-x: hidden; /* 가로 스크롤 숨김 */
+
+  /* 스크롤바 숨김 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.home-subtitle-right::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+
+  
+  @media (max-width: 768px) {
+  
+    .home-header {
+      text-align: center;
+       margin-bottom: 40px;
+       margin-top: 20px;
+    }
+    .home-title {
+      font-size: 35px;
+      font-family: 'Cafe24 Ssurround', sans-serif;
+      font-weight: bold;
+      color: #000000;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px; /* 텍스트와 아이콘 사이의 간격 */
+  }
+  .home-subtitle-container {
+    display: none;
+  }
+
+  .home-subtitle {
+    font-size: 11px; /* 작게 표시 */
+    font-family: 'Cafe24 Ssurround', sans-serif;
+    color: #666666; /* 연한 회색 */
+    margin-top: 5px; /* 제목과의 간격 */
+  }
+
+  .home-table {
+    width: 98%; /* 테이블 크기 줄임 */
+    margin: 0 auto; /* 중앙 정렬 유지 */
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 30px;
+    text-align: center; /* 모든 텍스트 중앙 정렬 */
+  }
+
+  .home-page {
+    max-width: 1000px; /* 컨테이너 크기 */
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #ffffff; /* 배경 흰색 유지 */
+    border-radius: 20px;
+    margin-top: 120px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  }
+
+  }
