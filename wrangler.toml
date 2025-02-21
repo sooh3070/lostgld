@@ -1,3 +1,0 @@
-name = "lostgld"  # 워커 이름 (필수)
-type = "javascript" # 또는 "webpack" (필수)
-main = "src/index.jsx" # 진입점 파일 경로 (필수)
