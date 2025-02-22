@@ -1,7 +1,7 @@
 // src/components/craft/CraftTable.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setExpandedIndex, toggleItemSelected } from '../../store/craftSlice';
+import { setExpandedIndex, toggleItemSelected, updateItemPrice } from '../../store/craftSlice';
 import './CraftTable.css';
 
 const CraftTable = () => {
@@ -14,6 +14,11 @@ const CraftTable = () => {
 
   const handleToggleItemSelected = (entryIndex, itemIndex) => {
     dispatch(toggleItemSelected({ entryIndex, itemIndex }));
+  };
+
+  // 새로 추가된 핸들러: 시세 값 변경 시 호출
+  const handlePriceChange = (entryIndex, itemIndex, newPrice) => {
+    dispatch(updateItemPrice({ entryIndex, itemIndex, newPrice }));
   };
 
   return (
@@ -51,12 +56,21 @@ const CraftTable = () => {
                       onClick={() => handleToggleItemSelected(index, subIndex)}
                     >
                       <td>
-                        <img src={item.icon} alt={item.icon} className="table-icon" />
+                        <img src={item.icon} alt={item.name} className="table-icon" />
                       </td>
                       <td>{item.name}</td>
                       <td>{item.count}</td>
                       <td>{item.bundleCount}</td>
-                      <td>{item.price.toLocaleString()}G</td>
+                      <td>
+                        <input
+                          type="number"
+                          value={item.price}
+                          onChange={(e) =>
+                            handlePriceChange(index, subIndex, parseInt(e.target.value, 10) || 0)
+                          }
+                          className="price-input"
+                        />G
+                      </td>
                       <td>{item.total.toLocaleString()}G</td>
                     </tr>
                   ))}

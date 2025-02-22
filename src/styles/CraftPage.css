@@ -8,7 +8,15 @@
     text-align: left;
   }
   
-  
+  .price-input {
+    width: 80px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
   .craft-input-group {
     font-family: 'SUIT Variable', sans-serif;
     display: flex;

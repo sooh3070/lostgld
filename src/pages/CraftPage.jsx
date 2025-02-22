@@ -24,9 +24,9 @@ const CraftPage = () => {
     dispatch(fetchCraftData({ 
       craftingFeeReduction, 
       craftingSuccessRate,
-      keepSort: true // 정렬 상태 유지
+      keepSort: sortByProfit // 정렬 상태 유지
     }));
-  }, [dispatch, craftingFeeReduction, craftingSuccessRate]);
+  }, [dispatch, craftingFeeReduction, craftingSuccessRate, sortByProfit]);
 
   const handleInputChange = (setter, value) => {
     const parsedValue = value === '' ? '' : parseInt(value, 10) || 0;
@@ -35,6 +35,15 @@ const CraftPage = () => {
 
   const handleSortToggle = () => {
     dispatch(toggleSortByProfit());
+  };
+
+  // API 새로고침 버튼 클릭 시 호출되는 핸들러
+  const handleApiRefresh = () => {
+    dispatch(fetchCraftData({
+      craftingFeeReduction,
+      craftingSuccessRate,
+      keepSort: sortByProfit,
+    }));
   };
 
   return (
@@ -71,6 +80,11 @@ const CraftPage = () => {
           </label>
         </div>
         <div className="craft-input-group">
+          {/* API 새로고침 버튼을 정렬 버튼 왼쪽에 추가 */}
+          <button className="sort-button" onClick={handleApiRefresh}>
+            API 새로고침
+          </button>
+          &nbsp; &nbsp;
           <button className="sort-button" onClick={handleSortToggle}>
             {sortByProfit ? '원래 순서로 보기' : '판매차익 기준으로 정렬'}
           </button>
