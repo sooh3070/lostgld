@@ -99,7 +99,8 @@ const craftSlice = createSlice({
       const { entryIndex, itemIndex, newPrice } = action.payload;
       const entry = state.craftData[entryIndex];
       if (!entry) return;
-
+    
+      // 업데이트 시 기존의 selection 플래그를 그대로 유지
       const updatedItems = entry.items.map((item, idx) => {
         // 파생 항목은 수정 불가
         if (item.isDerived) return item;
@@ -107,46 +108,51 @@ const craftSlice = createSlice({
           return {
             ...item,
             price: newPrice,
-            total: newPrice * item.count / 100,
+            total: newPrice * item.count/100,
           };
         }
         return item;
       });
-
-      // 첫번째 항목(item2, index 0)이 수정되면 파생 항목 derivedItem6 (index 3) 재계산
+    
+      // 첫번째 항목(인덱스 0)이 수정되면 파생 항목 derivedItem6 (인덱스 3) 재계산 시 기존 선택값 유지
       if (itemIndex === 0) {
         const updatedItem2 = updatedItems[0];
-        const item4 = updatedItems[2];
+        const item4 = updatedItems[2]; // item4는 변하지 않음
         if (item4) {
           const newCount = item4.count * 12.5;
           const newTotal = Math.floor((newCount * updatedItem2.price / updatedItem2.bundleCount) * 100) / 100;
+          const previousSelected = entry.items[3]?.isSelected || false;
           updatedItems[3] = {
             ...updatedItem2,
             count: newCount,
             total: newTotal,
             name: "가루: " + updatedItem2.name,
             isDerived: true,
+            isSelected: previousSelected,
           };
         }
       }
-
-      // 두번째 항목(item3, index 1)이 수정되면 파생 항목 derivedItem7 (index 4) 재계산
+    
+      // 두번째 항목(인덱스 1)이 수정되면 파생 항목 derivedItem7 (인덱스 4) 재계산 시 기존 선택값 유지
       if (itemIndex === 1) {
         const updatedItem3 = updatedItems[1];
         const item4 = updatedItems[2];
         if (item4) {
           const newCount = item4.count * 6.25;
           const newTotal = Math.floor((newCount * updatedItem3.price / updatedItem3.bundleCount) * 100) / 100;
+          const previousSelected = entry.items[4]?.isSelected || false;
           updatedItems[4] = {
             ...updatedItem3,
             count: newCount,
             total: newTotal,
             name: "가루: " + updatedItem3.name,
             isDerived: true,
+            isSelected: previousSelected,
           };
         }
       }
-
+    
+      // 나머지 계산은 기존 선택 상태(인덱스 2 이상의 항목) 보존하여 재계산
       const fixedItems = [updatedItems[0], updatedItems[1]];
       const selectedItem = updatedItems.find((item, idx) => idx >= 2 && item.isSelected);
       const selectedTotal = selectedItem ? selectedItem.total : 0;
@@ -169,10 +175,11 @@ const craftSlice = createSlice({
           craftingCost: craftingCostCalc,
         },
       };
-
+    
       state.craftData[entryIndex] = updatedEntry;
       state.originalCraftData[entryIndex] = updatedEntry;
     },
+    
   },
   extraReducers: (builder) => {
     builder
