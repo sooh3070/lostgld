@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+// src/components/craft/CraftTable.jsx
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setExpandedIndex, toggleItemSelected } from '../../store/craftSlice';
 import './CraftTable.css';
 
-const CraftTable = ({ data, onToggleItemSelected }) => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+const CraftTable = () => {
+  const dispatch = useDispatch();
+  const { craftData, expandedIndex } = useSelector((state) => state.craft);
 
-  const toggleExpand = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+  const handleExpand = (index) => {
+    dispatch(setExpandedIndex(expandedIndex === index ? null : index));
+  };
+
+  const handleToggleItemSelected = (entryIndex, itemIndex) => {
+    dispatch(toggleItemSelected({ entryIndex, itemIndex }));
   };
 
   return (
     <div className="craft-list">
-      {data.map((entry, index) => (
+      {craftData.map((entry, index) => (
         <div key={index} className="craft-list-item">
-          <div className="list-header" onClick={() => toggleExpand(index)}>
+          <div className="list-header" onClick={() => handleExpand(index)}>
             <img src={entry.header.icon} alt={entry.header.name} className="list-icon" />
             <span className="list-name">{entry.header.name}</span>
             <span className="list-price">가격: {entry.header.price.toLocaleString()}G</span>
@@ -38,9 +46,9 @@ const CraftTable = ({ data, onToggleItemSelected }) => {
                     <tr
                       key={subIndex}
                       className={`detail-row ${item.isSelected ? 'selected' : ''} ${
-[2, 3, 4, 5, 6].includes(subIndex + 1) ? `row-${subIndex + 1}` : ''
+                        [2, 3, 4, 5, 6].includes(subIndex + 1) ? `row-${subIndex + 1}` : ''
                       }`}
-                      onClick={() => onToggleItemSelected(index, subIndex)}
+                      onClick={() => handleToggleItemSelected(index, subIndex)}
                     >
                       <td>
                         <img src={item.icon} alt={item.icon} className="table-icon" />
