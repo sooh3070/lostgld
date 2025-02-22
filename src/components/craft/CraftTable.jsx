@@ -1,4 +1,3 @@
-// src/components/craft/CraftTable.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setExpandedIndex, toggleItemSelected, updateItemPrice } from '../../store/craftSlice';
@@ -16,7 +15,6 @@ const CraftTable = () => {
     dispatch(toggleItemSelected({ entryIndex, itemIndex }));
   };
 
-  // 새로 추가된 핸들러: 시세 값 변경 시 호출
   const handlePriceChange = (entryIndex, itemIndex, newPrice) => {
     dispatch(updateItemPrice({ entryIndex, itemIndex, newPrice }));
   };
@@ -51,7 +49,7 @@ const CraftTable = () => {
                     <tr
                       key={subIndex}
                       className={`detail-row ${item.isSelected ? 'selected' : ''} ${
-                        [2, 3, 4, 5, 6].includes(subIndex + 1) ? `row-${subIndex + 1}` : ''
+                        [2,3,4,5,6].includes(subIndex+1) ? `row-${subIndex+1}` : ''
                       }`}
                       onClick={() => handleToggleItemSelected(index, subIndex)}
                     >
@@ -62,14 +60,18 @@ const CraftTable = () => {
                       <td>{item.count}</td>
                       <td>{item.bundleCount}</td>
                       <td>
-                        <input
-                          type="number"
-                          value={item.price}
-                          onChange={(e) =>
-                            handlePriceChange(index, subIndex, parseInt(e.target.value, 10) || 0)
-                          }
-                          className="price-input"
-                        />G
+                        {item.isDerived ? (
+                          <span>{item.price}</span>
+                        ) : (
+                          <input
+                            type="number"
+                            value={item.price}
+                            onChange={(e) =>
+                              handlePriceChange(index, subIndex, parseInt(e.target.value, 10) || 0)
+                            }
+                            className="price-input"
+                          />
+                        )}G
                       </td>
                       <td>{item.total.toLocaleString()}G</td>
                     </tr>

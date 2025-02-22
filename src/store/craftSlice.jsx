@@ -22,7 +22,7 @@ const craftSlice = createSlice({
     craftingSuccessRate: parseInt(localStorage.getItem('craftingSuccessRate')) || 0,
     craftData: [],
     isLoading: false,
-    sortByProfit: false,
+    sortByProfit: JSON.parse(localStorage.getItem('sortByProfit')) || false,
     expandedIndex: null,
     originalCraftData: [],
   },
@@ -36,22 +36,20 @@ const craftSlice = createSlice({
       localStorage.setItem('craftingSuccessRate', action.payload);
     },
     toggleSortByProfit: (state) => {
-        // 정렬 전, 현재 열려있는 항목의 고유 식별자 저장 (여기서는 header.name 사용)
+        // 정렬 시 현재 열린 항목의 식별자(header.name)를 저장 (필요하면)
         let expandedId = null;
         if (state.expandedIndex !== null && state.craftData[state.expandedIndex]) {
           expandedId = state.craftData[state.expandedIndex].header.name;
         }
-        
-        state.sortByProfit = !state.sortByProfit;
-        if (state.sortByProfit) {
-          state.craftData = [...state.craftData].sort((a, b) => b.header.profit - a.header.profit);
-        } else {
-          state.craftData = [...state.originalCraftData];
-        }
-        
-        // 정렬 후, 저장된 expandedId를 기반으로 새 인덱스를 찾아 업데이트
+      
+        // 항상 판매차익 기준 정렬로 상태를 업데이트
+        state.sortByProfit = true;
+        state.craftData = [...state.craftData].sort((a, b) => b.header.profit - a.header.profit);
+        localStorage.setItem('sortByProfit', JSON.stringify(state.sortByProfit));
+      
+        // 열린 항목이 있다면, 정렬 후 해당 항목의 인덱스를 다시 찾음
         if (expandedId !== null) {
-          const newIndex = state.craftData.findIndex((entry) => entry.header.name === expandedId);
+          const newIndex = state.craftData.findIndex(entry => entry.header.name === expandedId);
           state.expandedIndex = newIndex === -1 ? null : newIndex;
         }
       },
@@ -60,23 +58,24 @@ const craftSlice = createSlice({
     },
     toggleItemSelected: (state, action) => {
       const { entryIndex, itemIndex } = action.payload;
-      const entry = state.craftData[entryIndex];
+      // 선택 불가능한 항목(예: 인덱스 0, 1)을 클릭하면 아무 작업도 하지 않음.
+      if (itemIndex < 2) return;
       
+      const entry = state.craftData[entryIndex];
       if (!entry) return;
 
-      // 아이템 선택 로직 (원본 데이터는 변경하지 않음)
-      const selectedItems = entry.items.map((item, iIndex) => ({
+      const selectedItems = entry.items.map((item, idx) => ({
         ...item,
-        isSelected: iIndex >= 2 && iIndex === itemIndex,
+        isSelected: idx >= 2 && idx === itemIndex,
       }));
 
       const fixedItems = [selectedItems[0], selectedItems[1]];
-      const selectedItem = selectedItems.find((item, iIndex) => iIndex >= 2 && item.isSelected);
+      const selectedItem = selectedItems.find((item, idx) => idx >= 2 && item.isSelected);
       const selectedTotal = selectedItem ? selectedItem.total : 0;
       const materialSum = Math.floor((fixedItems[0].total + fixedItems[1].total + selectedTotal) * 100) / 100;
-      const craftingCost = Math.floor((parseFloat(entry.footer.craftingFee.replace('G', '')) + materialSum) * 100) / 100;
+      const craftingCostCalc = Math.floor((parseFloat(entry.footer.craftingFee.replace('G', '')) + materialSum) * 100) / 100;
       const doublecraft = 5 + 5 * (state.craftingSuccessRate / 100);
-      const profit = entry.header.price + ((entry.header.price - entry.header.charge) * doublecraft / 100) - craftingCost - entry.header.charge;
+      const profit = entry.header.price + ((entry.header.price - entry.header.charge) * doublecraft / 100) - craftingCostCalc - entry.header.charge;
 
       const updatedEntry = {
         ...entry,
@@ -84,44 +83,77 @@ const craftSlice = createSlice({
         footer: {
           ...entry.footer,
           materialSum: `${materialSum}G`,
-          craftingCost: `${craftingCost}G`,
+          craftingCost: `${craftingCostCalc}G`,
         },
         header: {
           ...entry.header,
           profit,
-          craftingCost,
+          craftingCost: craftingCostCalc,
         },
       };
 
       state.craftData[entryIndex] = updatedEntry;
       state.originalCraftData[entryIndex] = updatedEntry;
     },
-    // 새로운 액션: 사용자가 시세를 수정할 때 호출됨
     updateItemPrice: (state, action) => {
       const { entryIndex, itemIndex, newPrice } = action.payload;
       const entry = state.craftData[entryIndex];
       if (!entry) return;
-      
-      // 해당 항목의 시세를 업데이트하고, 총합(total)을 재계산 (여기서는 total = price × count 로 가정)
+
       const updatedItems = entry.items.map((item, idx) => {
+        // 파생 항목은 수정 불가
+        if (item.isDerived) return item;
         if (idx === itemIndex) {
           return {
             ...item,
             price: newPrice,
-            total: newPrice * item.count /100, // 계산식 필요에 따라 조정
+            total: newPrice * item.count / 100,
           };
         }
         return item;
       });
 
-      // 재료 비용 및 판매 차익 재계산 (선택된 항목이 있을 경우에만 반영)
+      // 첫번째 항목(item2, index 0)이 수정되면 파생 항목 derivedItem6 (index 3) 재계산
+      if (itemIndex === 0) {
+        const updatedItem2 = updatedItems[0];
+        const item4 = updatedItems[2];
+        if (item4) {
+          const newCount = item4.count * 12.5;
+          const newTotal = Math.floor((newCount * updatedItem2.price / updatedItem2.bundleCount) * 100) / 100;
+          updatedItems[3] = {
+            ...updatedItem2,
+            count: newCount,
+            total: newTotal,
+            name: "가루: " + updatedItem2.name,
+            isDerived: true,
+          };
+        }
+      }
+
+      // 두번째 항목(item3, index 1)이 수정되면 파생 항목 derivedItem7 (index 4) 재계산
+      if (itemIndex === 1) {
+        const updatedItem3 = updatedItems[1];
+        const item4 = updatedItems[2];
+        if (item4) {
+          const newCount = item4.count * 6.25;
+          const newTotal = Math.floor((newCount * updatedItem3.price / updatedItem3.bundleCount) * 100) / 100;
+          updatedItems[4] = {
+            ...updatedItem3,
+            count: newCount,
+            total: newTotal,
+            name: "가루: " + updatedItem3.name,
+            isDerived: true,
+          };
+        }
+      }
+
       const fixedItems = [updatedItems[0], updatedItems[1]];
       const selectedItem = updatedItems.find((item, idx) => idx >= 2 && item.isSelected);
       const selectedTotal = selectedItem ? selectedItem.total : 0;
       const materialSum = Math.floor((fixedItems[0].total + fixedItems[1].total + selectedTotal) * 100) / 100;
-      const craftingCost = Math.floor((parseFloat(entry.footer.craftingFee.replace('G', '')) + materialSum) * 100) / 100;
+      const craftingCostCalc = Math.floor((parseFloat(entry.footer.craftingFee.replace('G', '')) + materialSum) * 100) / 100;
       const doublecraft = 5 + 5 * (state.craftingSuccessRate / 100);
-      const profit = entry.header.price + ((entry.header.price - entry.header.charge) * doublecraft / 100) - craftingCost - entry.header.charge;
+      const profit = entry.header.price + ((entry.header.price - entry.header.charge) * doublecraft / 100) - craftingCostCalc - entry.header.charge;
       
       const updatedEntry = {
         ...entry,
@@ -129,12 +161,12 @@ const craftSlice = createSlice({
         footer: {
           ...entry.footer,
           materialSum: `${materialSum}G`,
-          craftingCost: `${craftingCost}G`,
+          craftingCost: `${craftingCostCalc}G`,
         },
         header: {
           ...entry.header,
           profit,
-          craftingCost,
+          craftingCost: craftingCostCalc,
         },
       };
 
@@ -166,7 +198,7 @@ export const {
   toggleSortByProfit,
   setExpandedIndex,
   toggleItemSelected,
-  updateItemPrice, // 새 액션 내보내기
+  updateItemPrice,
 } = craftSlice.actions;
 
 export default craftSlice.reducer;
