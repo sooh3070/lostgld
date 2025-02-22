@@ -84,6 +84,7 @@ function HomePage() {
         <div className="home-subtitle-right">
         <p className="home-subtitle3"><strong>업데이트</strong></p>
         <p className="home-subtitle2">
+            <br/>2025.02.23 융화 재료 제작 | 사용자 가격입력 추가
             <br/>2025.02.10 생활 가루 계산기 | 복구
             <br/>2025.02.08 pve 효율 계산기 | 데이터 정확도 개선
             <br/>2025.02.07 생활도구 계산기 | 정확도 개선 (gld2)
