@@ -108,7 +108,7 @@ const craftSlice = createSlice({
           return {
             ...item,
             price: newPrice,
-            total: newPrice * item.count/100,
+            total: Math.floor((item.count * newPrice) / item.bundleCount * 100) / 100,
           };
         }
         return item;
