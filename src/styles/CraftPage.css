@@ -75,5 +75,8 @@
     .craft-input-field {
       width: 40px;
     }
+    .price-input {
+      font-size: 13px;
+    }
   }
   
