@@ -22,7 +22,7 @@ const craftSlice = createSlice({
     craftingSuccessRate: parseInt(localStorage.getItem('craftingSuccessRate')) || 0,
     craftData: [],
     isLoading: false,
-    sortByProfit: JSON.parse(localStorage.getItem('sortByProfit')) || false,
+    sortByProfit: false, // 초기값을 false로 설정
     expandedIndex: null,
     originalCraftData: [],
   },
@@ -42,10 +42,9 @@ const craftSlice = createSlice({
           expandedId = state.craftData[state.expandedIndex].header.name;
         }
       
-        // 항상 판매차익 기준 정렬로 상태를 업데이트
+        // 판매차익 기준 정렬로 상태를 업데이트
         state.sortByProfit = true;
         state.craftData = [...state.craftData].sort((a, b) => b.header.profit - a.header.profit);
-        localStorage.setItem('sortByProfit', JSON.stringify(state.sortByProfit));
       
         // 열린 항목이 있다면, 정렬 후 해당 항목의 인덱스를 다시 찾음
         if (expandedId !== null) {
@@ -187,14 +186,32 @@ const craftSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchCraftData.fulfilled, (state, action) => {
+        // 열린 항목의 이름을 저장
+        let expandedId = null;
+        if (state.expandedIndex !== null && state.craftData[state.expandedIndex]) {
+          expandedId = state.craftData[state.expandedIndex].header.name;
+        }
+  
         state.craftData = action.payload;
         state.originalCraftData = action.payload;
         state.isLoading = false;
+        
+        // 정렬 상태가 true라면 정렬 수행
+        if (state.sortByProfit) {
+          state.craftData = [...state.craftData].sort((a, b) => b.header.profit - a.header.profit);
+        }
+  
+        // 열린 항목이 있었다면, 정렬 후 해당 항목의 인덱스를 다시 찾음
+        if (expandedId !== null) {
+          const newIndex = state.craftData.findIndex(entry => entry.header.name === expandedId);
+          state.expandedIndex = newIndex === -1 ? null : newIndex;
+        }
       })
       .addCase(fetchCraftData.rejected, (state) => {
         state.isLoading = false;
         state.craftData = [];
         state.originalCraftData = [];
+        state.expandedIndex = null;
       });
   },
 });
