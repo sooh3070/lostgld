@@ -1,81 +1,91 @@
-/* 기본 테이블 스타일 */
+/* 테이블 전체 박스 */
 .tool-table {
-  width: 60%; /* 기본 너비 */
-  background: #ffffff;
+  width: 60%;
+  background: var(--table-bg);           /* 테이블 배경 */
   border-radius: 5px;
-  border: 2px solid #bdbdbd;
+  border: 2px solid var(--table-border); /* 테두리 */
   margin-bottom: 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: sans-serif;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-sub);
+  color: var(--table-text);
 }
 
+/* 상단 헤더 (이름, 입력란 헤더 등) */
 .tool-table-header {
-  background: #e6e6e645;
+  background: var(--table-header-bg);    /* 밝은 배경 (또는 다크모드용 어두운) */
   display: flex;
-  justify-content: space-between; /* 기존의 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  align-items: center; /* 셀 안에서 수직 중앙 정렬 */
-  font-family: 'SUIT Variable', sans-serif;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  font-family: var(--font-alt);
   font-size: 20px;
   font-weight: 800;
   padding: 10px;
   padding-left: 21px;
-  border-bottom: 1px solid #bdbdbd;
+  border-bottom: 1px solid var(--table-border);
+  color: var(--table-text);
 }
 
+/* 각 데이터 행 */
 .tool-table-row {
   display: flex;
-  border-bottom: 1px solid #bdbdbd;
+  border-bottom: 1px solid var(--table-border);
   align-items: center;
 }
 
+/* 셀 기본 */
 .tool-table-cell {
   flex: 1;
-  font-family: sans-serif;
+  font-family: var(--font-sub);
   font-size: 19px;
   font-weight: 500;
   padding: 8px;
   text-align: left;
   margin-left: 15px;
+  color: var(--table-text);
 }
 
+/* 입력창 (정렬, 배경, 테두리 전부 테이블 변수 기반) */
 .tool-table-cell input {
   width: 70%;
   padding: 5px;
   font-size: 16px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   text-align: right;
+  background-color: var(--table-bg);       /* ✅ 배경 통일 */
+  color: var(--table-text);                /* ✅ 글자색 통일 */
+  border: 1px solid var(--table-border);   /* ✅ 테두리 통일 */
 }
 
+/* 회색 텍스트 (예: 설명 텍스트 등) */
 .gray-text {
-  color: rgb(77, 77, 77);
+  color: var(--table-subtext);
 }
 
-/* ===== 모바일용 스타일 ===== */
+/* ===== 모바일 반응형 ===== */
 @media (max-width: 768px) {
   .tool-table {
-    width: 99%; /* 테이블이 화면 너비를 가득 채우도록 */
-    border-radius: 0; /* 둥근 모서리 제거 */
-    margin-bottom: 10px; /* 테이블 간 여백 축소 */
-    margin-left: 2px; /* 테이블 간 여백 축소 */
-    margin-right: 2px; /* 테이블 간 여백 축소 */
+    width: 99%;
+    border-radius: 0;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .tool-table-header {
-    font-size: 15px; /* 헤더 글씨 크기 줄이기 */
-    padding: 8px; /* 내부 여백 축소 */
+    font-size: 15px;
+    padding: 8px;
   }
 
   .tool-table-cell {
-    font-size: 15px; /* 셀 글씨 크기 줄이기 */
-    padding: 10px; /* 셀 내부 여백 줄이기 */
-    margin-left: 5px; /* 좌측 간격 축소 */
+    font-size: 15px;
+    padding: 10px;
+    margin-left: 5px;
   }
 
   .tool-table-cell input {
-    width: 80%; /* 입력 필드가 셀의 대부분을 차지 */
-    font-size: 15px; /* 입력 필드 글씨 크기 줄이기 */
-    padding: 2px; /* 입력 필드 내부 여백 줄이기 */
+    width: 80%;
+    font-size: 15px;
+    padding: 2px;
   }
 }

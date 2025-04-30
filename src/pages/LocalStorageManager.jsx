@@ -36,8 +36,8 @@ const LocalStorageManager = () => {
        />
     </div>
 
-    <div className="local-storage-manager-container">
-      <h1>로컬 스토리지 관리</h1>
+    <div className="page-container">
+      <h1 className="page-title">로컬 스토리지 관리</h1>
       <h5>컨테이너 안에 텍스트를 복사, 붙여넣기 | 쿠키가 사라졌을 때 대처할 수 있어요</h5>
       <table className="local-storage-manager-table">
         <thead>

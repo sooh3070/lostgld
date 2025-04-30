@@ -2,12 +2,9 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #e1e5df; /* 페이지 전체 배경색:    background-color: #E0F1E7;   */ 
-  font-family: 'Cafe24 SsurroundAir','Cafe24 Ssurround', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'SUIT Variable', sans-serif;
+  background-color: var(--page-bg); /* ✅ 전체 페이지 배경 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #000; /* 기본 텍스트 색상 */
 }
 
 code {

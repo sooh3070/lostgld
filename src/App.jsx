@@ -15,6 +15,8 @@ import ConversionPage from './pages/ConversionPage.jsx';
 import AdComponent from './components/AdComponent.jsx'; // 사이드 광고 컴포넌트 추가
 import CraftPage from './pages/CraftPage.jsx';
 import './App.css'; // 전체 스타일
+import './styles/theme.css'
+import './styles/layout.css';
 
 function App() {
   return (

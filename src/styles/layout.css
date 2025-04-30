@@ -1,0 +1,170 @@
+/* 공통 페이지 컨테이너 */
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px;
+  margin-top: 120px;
+  background-color: var(--bg);
+  border-radius: 20px;
+  font-family: var(--font-main);
+  color: var(--text);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .page-container {
+    max-width: 100%;
+    margin-top: 60px;
+    padding: 20px;
+    border-radius: 0;
+  }
+}
+
+/* 공통 제목 스타일 */
+.page-title {
+  font-size: 30px;
+  font-weight: 700;
+  font-family: var(--font-main);
+  color: var(--text);
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+/* 공통 부제목 (예: 안내 텍스트) */
+
+.page-subtitle {
+  font-family: var(--font-sub);
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* 공통 인풋 필드 */
+.input-field {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* 강조 인풋 */
+.highlight-input {
+  background-color: var(--box-bg);
+  font-weight: bold;
+}
+
+/* 공통 버튼 스타일 */
+.button-primary {
+  background-color: var(--primary);
+  color: white;
+  padding: 8px 14px;
+  font-size: 15px;
+  font-family: var(--font-alt);
+  font-weight: 800;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button-primary:hover {
+  background-color: var(--accent);
+}
+
+/* 정렬 버튼 (ex. sort-button) */
+.sort-button {
+  background-color: var(--primary);
+  font-family: var(--font-alt);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.sort-button:hover {
+  background-color: var(--accent);
+}
+
+/* 필터 버튼 그룹 */
+.filter-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+/* 필터 버튼 */
+.filter-button {
+  font-family: var(--font-alt);
+  font-weight: 700;
+  padding: 8px 20px;
+  font-size: 14px;
+  border: 1px solid var(--primary);
+  background-color: var(--bg);
+  color: var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-button:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.filter-button.selected {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+/* 버튼 그룹 (정렬/수정 등) */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+/* 로딩 상태 텍스트 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: var(--font-main);
+  color: #4e66cf;
+}
+
+/* Info 아이콘 */
+.info-icon {
+  font-size: 20px;
+  color: #4e66cf;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.info-icon:hover {
+  color: var(--accent);
+  cursor: pointer;
+}
+
+/* 상단 광고 영역 (공통 적용) */
+.top-ad-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 20px auto 0 auto;
+  padding: 0;
+  text-align: center;
+  height: 0;
+}

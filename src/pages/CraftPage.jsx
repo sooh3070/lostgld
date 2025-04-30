@@ -49,8 +49,10 @@ const CraftPage = () => {
       <div className="top-ad-container">
         <AdComponent className="horizontal-ad" adClient="ca-pub-4349329556962059" adSlot="8783003456" adType="horizontal" />
       </div>
-      <div className="craft-page">
-        <h1>융화 재료 제작</h1>
+      
+      <div className="page-container">
+        <h1 className="page-title">융화 재료 제작</h1>
+        
         <div className="craft-input-group">
           <h5>
             ※ 대성공 확률 5%, 판매 수수료 5% 기본 적용 
@@ -77,6 +79,7 @@ const CraftPage = () => {
             />%
           </label>
         </div>
+
         <div className="craft-input-group">
           <button className="sort-button" onClick={handleApiRefresh}>
             API 새로고침
@@ -86,6 +89,7 @@ const CraftPage = () => {
             판매차익 기준으로 정렬
           </button>
         </div>
+
         {isLoading ? (
           <div className="loading-container">로딩 중...</div>
         ) : (
@@ -93,6 +97,7 @@ const CraftPage = () => {
             <CraftTable />
           </div>
         )}
+
         <AdComponent className="horizontal-ad" adClient="ca-pub-4349329556962059" adSlot="5655624736" adType="horizontal" />
       </div>
     </div>

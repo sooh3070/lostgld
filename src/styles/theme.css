@@ -1,0 +1,118 @@
+/* theme.css */
+@font-face {
+    font-family: 'SCDream';
+    src: url('/fonts/SCDream4.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SCDream';
+    src: url('/fonts/SCDream5.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SCDream';
+    src: url('/fonts/SCDream6.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Cafe24 Ssurround';
+    src: url('/fonts/Cafe24Ssurround-v2.0.woff2') format('woff2'),
+         url('/fonts/Cafe24Ssurround-v2.0.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Cafe24 SsurroundAir';
+    src: url('/fonts/Cafe24SsurroundAir-v1.1.woff2') format('woff2'),
+         url('/fonts/Cafe24SsurroundAir-v1.1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SUIT Variable';
+    font-weight: 100 900;
+    src: url('/fonts/SUIT-Variable.woff2') format('woff2-variations');
+  }
+  
+body {
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+h5 {
+  font-family: var(--font-sub);
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+h3 {
+  font-family: var(--font-sub);
+  font-size: 14px;
+
+}
+
+/* 라이트 모드 (기본) */
+:root {
+    --bg: #ffffff;
+    --page-bg: #c5bba94e;
+    --box-bg: #fff9e8;      
+    --text: #000000;
+    --primary: #ffc268;
+    --accent: #ffb01e;
+    --border: #dddddd;
+    --subtle: #f9f9f9;
+ 
+    --font-main: 'Cafe24 Ssurround', sans-serif;
+    --font-sub: 'SCDream', sans-serif;
+    --font-alt: 'SUIT Variable', sans-serif;
+
+    --gray: #707070;
+    --orange: #ffc400;
+    --orange2: #ff7043;
+  
+    --header-bg: #ffffff;
+    --header-border: #ffc400;
+    --header-link: #707070;
+    --header-link-hover: #ffc400;
+
+    --table-bg: #ffffff;
+    --table-border: #BDBDBD;
+    --table-header-bg: #f0f0f0;
+    --table-text: #000000;
+    --table-subtext: #4d4d4d;
+  }
+  
+  /* 다크 모드 */
+  [data-theme="dark"] {
+    --bg: #1e1e1e;
+    --page-bg: #2e2c28;       /* 다크 모드용 배경 */
+    --box-bg: #5d5643;   
+    --text: #f0f0f0;
+    --primary: #ffaa33;
+    --accent: #ffc268;
+    --border: #444;
+    --subtle: #2c2c2c;
+  
+    --header-bg: #1e1e1e;
+    --header-border: #ffaa33;
+    --header-link: #cccccc;
+    --header-link-hover: #ffaa33;
+
+    --table-bg: #262626;
+    --table-border: #444444;
+    --table-header-bg: #333333;
+    --table-text: #f0f0f0;
+    --table-subtext: #aaaaaa;
+  }
+  

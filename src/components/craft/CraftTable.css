@@ -1,16 +1,23 @@
 .craft-list {
   margin: 20px 0;
-  font-family: 'SUIT Variable', sans-serif;
+  font-family: var(--font-alt);
   font-weight: 600;
   font-size: 17px;
+  color: var(--text);
 }
 
 .craft-list-item {
-  font-family: 'SUIT Variable', sans-serif;
-  border: 1px solid #a3a3a3;
+  font-family: var(--font-alt);
+  border: 1px solid var(--border);
   border-radius: 8px;
   margin-bottom: 10px;
   padding: 10px;
+  background-color: var(--bg); /* 일반 배경 */
+  color: var(--text);
+}
+
+.craft-list-item:hover {
+  background-color: var(--box-bg); /* 연초록 → 변수 적용 */
 }
 
 .list-header {
@@ -18,10 +25,7 @@
   align-items: center;
   cursor: pointer;
   font-weight: 700;
-}
-
-.craft-list-item:hover {
-  background-color: #f3f7f2; 
+  color: var(--text);
 }
 
 .list-icon {
@@ -31,14 +35,15 @@
 }
 
 .table-icon {
-  width: 24px; /* 아이콘 크기 */
+  width: 24px;
   height: 24px;
-  margin-right: 8px; /* 아이콘과 텍스트 사이의 간격 */
+  margin-right: 8px;
 }
 
 .list-name {
   flex: 1;
 }
+
 .list-price1,
 .list-price,
 .list-profit,
@@ -47,119 +52,120 @@
 }
 
 .detail-table {
-  background-color: #f9f9f9;
+  background-color: var(--subtle);
   margin-top: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 1px;
 }
 
 .detail-table table {
   width: 100%;
   border-collapse: collapse;
+  color: var(--text);
 }
 
 .detail-table th,
 .detail-table td {
   padding: 8px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border);
 }
 
-.selected {
-  background-color: #f9f9f9 !important;
-  color: #000000 !important; /* 공통 텍스트 색상 */
+.detail-row.selected {
+  background-color: var(--subtle) !important;
+  color: var(--text) !important;
 }
 
 .detail-row.row-3,
 .detail-row.row-4,
 .detail-row.row-5,
 .detail-row.row-6 {
-  background-color: #ffffff; /* 공통 배경색 */
-  color: #959595; /* 공통 텍스트 색상 */
+  background-color: var(--bg);
+  color: var(--gray);
 }
 
 @media (max-width: 768px) {
   .craft-list {
-      margin: 15px 0;
-      font-size: 15px; /* 글자 크기 줄이기 */
+    margin: 15px 0;
+    font-size: 15px;
   }
 
   .craft-list-item {
-      padding: 8px; /* 아이템 패딩 줄이기 */
-      font-size: 14px; /* 아이템 텍스트 크기 줄이기 */
+    padding: 8px;
+    font-size: 14px;
   }
 
   .list-header {
-      flex-wrap: wrap; /* 요소가 화면 밖으로 나가지 않도록 줄 바꿈 */
+    flex-wrap: wrap;
   }
 
   .list-icon {
-      width: 30px; /* 아이콘 크기 조정 */
-      height: 30px;
-      margin-right: 8px;
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
   }
 
   .table-icon {
-      width: 20px; /* 테이블 아이콘 크기 조정 */
-      height: 20px;
-      margin-right: 6px;
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
   }
 
   .list-price,
   .list-price1,
   .list-profit,
   .list-cost {
-      margin-left: 20px; /* 여백 줄이기 */
+    margin-left: 20px;
   }
 
   .detail-table table {
-      font-size: 12px; /* 테이블 텍스트 크기 줄이기 */
+    font-size: 12px;
   }
 
   .detail-table th,
   .detail-table td {
-      padding: 6px; /* 테이블 셀 패딩 줄이기 */
+    padding: 6px;
   }
 }
 
 @media (max-width: 480px) {
   .list-header {
-      flex-direction: column; /* 작은 화면에서는 요소를 수직으로 정렬 */
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .list-name {
-      margin-bottom: 5px; /* 텍스트 여백 추가 */
+    margin-bottom: 5px;
   }
 
   .list-price,
   .list-price1,
   .list-profit,
   .list-cost {
-      margin-left: 0; /* 여백 제거 */
+    margin-left: 0;
   }
 
   .craft-list-item {
-      padding: 6px; /* 더 작은 패딩 */
-      font-size: 13px; /* 더 작은 텍스트 */
+    padding: 6px;
+    font-size: 13px;
   }
 
   .list-icon {
-      width: 25px; /* 더 작은 아이콘 크기 */
-      height: 25px;
+    width: 25px;
+    height: 25px;
   }
 
   .table-icon {
-      width: 18px; /* 테이블 아이콘 크기 줄이기 */
-      height: 18px;
+    width: 18px;
+    height: 18px;
   }
 
   .detail-table table {
-      font-size: 10px; /* 테이블 텍스트 크기 줄이기 */
+    font-size: 10px;
   }
 
   .detail-table th,
   .detail-table td {
-      padding: 4px; /* 더 작은 셀 패딩 */
+    padding: 4px;
   }
 }

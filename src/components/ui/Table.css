@@ -1,22 +1,24 @@
 /* 테이블 스타일 */
 .efficiency-table {
   width: 100%;
-  background: #FFFFFF;
+  background: var(--table-bg);
   border-radius: 10px;
-  border: 2px solid #BDBDBD;
+  border: 2px solid var(--table-border);
   margin-bottom: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden; /* ✅ 내부 border 깨짐 방지 */
 }
 
 .table-header {
-  background: #e6e6e645;
+  background: var(--table-header-bg);
   display: flex;
   justify-content: space-between;
-  font-family: 'SUIT Variable', sans-serif;
+  font-family: var(--font-alt); /* ✅ 변경됨 */
   font-size: 20px;
   font-weight: 800;
   padding: 10px;
-  border-bottom: 1px solid #BDBDBD;
+  border-bottom: 1px solid var(--table-border);
+  line-height: 1.4;
 }
 
 .left-header {
@@ -28,37 +30,46 @@
 }
 
 .right-header span {
-  font-size: 20px; /* 골드 값만 더 크게 */
-  color: #000000; /* 금색 */
+  font-size: 20px;
+  color: var(--table-text);
   font-weight: 800;
+  font-family: var(--font-alt); /* ✅ 변경됨 */
+  line-height: 1.4;
 }
 
 .table-row {
   display: flex;
-  border-bottom: 1px solid #BDBDBD;
+  border-bottom: 1px solid var(--table-border);
 }
 
 .cell {
   flex: 1;
-  font-family: 'SUIT Variable', sans-serif;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-alt); /* ✅ 변경됨 */
   font-size: 20px;
   font-weight: 700;
   padding: 10px;
   text-align: center;
+  color: var(--table-text);
+  line-height: 1.4;
 }
 
 .gray-text {
-  color: rgb(77, 77, 77);
+  color: var(--table-subtext);
 }
 
 .table-footer {
   display: flex;
   justify-content: space-between;
-  font-family: 'SUIT Variable', sans-serif;
+  font-family: var(--font-alt); /* ✅ 변경됨 */
   font-size: 20px;
   font-weight: 700;
   padding: 10px;
-  color: #000000;
+  color: var(--table-text);
+  line-height: 1.4;
 }
 
 .left-footer {
@@ -70,13 +81,13 @@
 }
 
 .highlight-time {
-  color: #4e66cf; /* 시간 부분 색상 */
+  color: #4e66cf;
 }
 
 .highlight-gold {
-  color: #000000; /* 금색 */
+  color: var(--table-text);
   font-weight: 700;
-  text-shadow: 0 0 10px #FFA500; /* 빛나는 효과 */
+  text-shadow: 0 0 10px #FFA500;
 }
 
 .table-row .cell.icon-cell {
@@ -85,50 +96,47 @@
 }
 
 .table-row .cell.icon-cell img {
-  width: 24px; /* 아이콘 크기 */
+  width: 24px;
   height: 24px;
-  margin-right: 8px; /* 아이콘과 텍스트 사이의 간격 */
+  margin-right: 8px;
 }
 
 /* ===== 모바일용 스타일 ===== */
 @media (max-width: 768px) {
-  /* 테이블 전체 스타일 */
   .efficiency-table {
-    border-radius: 0; /* 모서리 둥근 효과 제거 */
+    border-radius: 0;
     padding: 0px;
-    margin-bottom: 10px; /* 테이블 간격 줄이기 */
-    border: 1px solid #BDBDBD; /* 테두리 간소화 */
+    margin-bottom: 10px;
+    border: 1px solid var(--table-border);
   }
 
-  /* 헤더 텍스트 크기 줄이기 */
   .table-header {
-    font-size: 15px; /* 글씨 크기 줄이기 */
-    padding: 8px; /* 패딩 줄이기 */
+    font-size: 15px;
+    padding: 8px;
   }
 
   .right-header span {
-    font-size: 16px; /* 골드 값만 더 크게 */
-    color: #000000; /* 금색 */
+    font-size: 16px;
+    color: var(--table-text);
     font-weight: 700;
+    font-family: var(--font-alt);
   }
 
-  /* 셀 텍스트 크기 줄이기 */
   .cell {
-    font-size: 15px; /* 글씨 크기 줄이기 */
-    padding: 8px; /* 패딩 줄이기 */
+    font-size: 15px;
+    padding: 8px;
+    font-family: var(--font-alt);
   }
 
-  /* 푸터 텍스트 크기 줄이기 */
   .table-footer {
-    font-size: 15px; /* 글씨 크기 줄이기 */
-    padding: 8px; /* 패딩 줄이기 */
+    font-size: 15px;
+    padding: 8px;
+    font-family: var(--font-alt);
   }
 
-  /* 아이콘 크기 줄이기 */
   .table-row .cell.icon-cell img {
-    width: 18px; /* 아이콘 크기 줄이기 */
+    width: 18px;
     height: 18px;
-    margin-right: 6px; /* 아이콘과 텍스트 간 간격 줄이기 */
+    margin-right: 6px;
   }
-
 }

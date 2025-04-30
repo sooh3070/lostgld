@@ -33,19 +33,19 @@
   .gauge-percentage {
     text-anchor: middle;
     font-size: 18px;
-    fill: #333;
-    font-weight: bold;
+    fill: var(--text);
+    font-weight: 800;
   }
   
   .gauge-chart-info {
     font-size: 14px;
     margin-top: 10px;
-    color: #666;
+    color: var(--text);
   }
   .gauge-status {
     text-anchor: middle;
     font-size: 14px;
-    fill: #666;
+    fill: var(--text);
     font-weight: bold;
   }
   
