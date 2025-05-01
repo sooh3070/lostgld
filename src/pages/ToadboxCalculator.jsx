@@ -48,10 +48,9 @@ export default function ToadboxCalculator() {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">골두꺼비 기댓값 계산기 (실시간)</h1>
+      <h1 className="page-title">골두꺼비 기댓값 계산기 (1분 갱신)</h1>
       <p className="page-subtitle">
         ※ 재련 상자는 원하지 않는 항목을 제외할 수 있어요. <br/>
-        ※ 갱신주기 1분. <br/>
         <span className="red">
         ※ 재련 랜덤 상자 2  | 야금술 : 업화 [15 - 18] 재봉술 : 업화 [15 - 18] 누락됨 <br/>
         &nbsp; ㄴ 인게임 거래소에서만 검색 가능 (api 아직 추가 안된 것 같아요 공홈에서도 검색 X)
