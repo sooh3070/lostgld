@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // 이미 상단에 있음
 import { fetchPveEfficiencyData, fetchLifeEfficiencyData } from '../services/LostArkApi';
 import { Helmet } from 'react-helmet-async';
 import '../styles/HomePage.css';
@@ -68,9 +69,9 @@ function HomePage() {
           { title: '', link: '/' },
           { title: '쿠키 관리', link: '/storage' },
         ].map((card, index) => (
-          <a href={card.link} className="home-card" key={index}>
-            <div className="card-title">{card.title}</div>
-          </a>
+         <Link to={card.link} className="home-card" key={index}>
+          <div className="card-title">{card.title}</div>
+         </Link>
         ))}
       </div>
 
