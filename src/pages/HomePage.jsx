@@ -1,33 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // 이미 상단에 있음
-import { fetchPveEfficiencyData, fetchLifeEfficiencyData } from '../services/LostArkApi';
 import { Helmet } from 'react-helmet-async';
 import '../styles/HomePage.css';
 import AdComponent from '../components/AdComponent';
 
 function HomePage() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        await Promise.all([
-          fetchPveEfficiencyData(),
-          fetchLifeEfficiencyData(),
-        ]);
-      } catch (error) {
-        console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
-
-  if (loading) {
-    return <div className="loading-container">데이터를 불러오는 중입니다...</div>;
-  }
 
   const pageTitle = '로스트골드 - 효율적인 골드 수급과 소비';
   const pageDescription = '로스트골드 | 효율적인 골드 수급과 소비';
