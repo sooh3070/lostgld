@@ -5,6 +5,10 @@
     margin-top: 10px;
     margin-bottom: 20px;
   }
+
+  .red {
+    color: red;
+  }
   
   .item-card {
     display: flex;

@@ -53,7 +53,8 @@ export default function ToadboxCalculator() {
 
       <label style={{ fontSize: '14px', marginBottom: '20px', display: 'inline-block' }}>
         <input type="checkbox" checked={applyFee} onChange={() => setApplyFee(!applyFee)} style={{ marginRight: '6px' }} />
-        거래소 수수료 5% 적용 &nbsp; ( 최종 적용 | 세세한 계산 X )
+        거래소 수수료 5% 적용 &nbsp; ( 최종 적용 | 세세한 계산 X ) <br />
+        <p className="red">※ 재련 랜덤 상자 2  | 야금술 : 업화 [15 - 18] 재봉술 : 업화 [15 - 18] 누락됨 </p>
       </label>
 
       {Object.entries(boxes).map(([key, box]) => {
