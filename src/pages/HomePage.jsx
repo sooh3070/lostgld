@@ -64,7 +64,7 @@ function HomePage() {
           { title: '융화 재료 제작기', link: '/craft' },
           { title: '생활 효율 계산기', link: '/life-data' },
           { title: '생활 가루 계산기', link: '/conversion' },
-          { title: '', link: '/' },
+          { title: '골두꺼비 기댓값 계산기', link: '/toadbox' },
           { title: '', link: '/' },
           { title: '쿠키 관리', link: '/storage' },
         ].map((card, index) => (

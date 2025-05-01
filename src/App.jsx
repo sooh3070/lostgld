@@ -14,6 +14,7 @@ import LocalStorageManager from './pages/LocalStorageManager.jsx'; // 쿠키 관
 import ConversionPage from './pages/ConversionPage.jsx';
 import AdComponent from './components/AdComponent.jsx'; // 사이드 광고 컴포넌트 추가
 import CraftPage from './pages/CraftPage.jsx';
+import ToadboxCalculator from './pages/ToadboxCalculator.jsx';
 import './App.css'; // 전체 스타일
 import './styles/theme.css'
 import './styles/layout.css';
@@ -46,6 +47,7 @@ function App() {
             <Route path="/storage" element={<LocalStorageManager />} />
             <Route path="/conversion" element={<ConversionPage />} />
             <Route path="/craft" element={<CraftPage />} />
+            <Route path="/toadbox" element={<ToadboxCalculator />} />
           </Routes>
         </div>
 
