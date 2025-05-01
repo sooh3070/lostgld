@@ -91,6 +91,7 @@ function HomePage() {
         <div className="home-subtitle-right">
           <p className="home-subtitle3"><strong>업데이트</strong></p>
           <p className="home-subtitle2">
+            <br />2025.05.01 골두꺼비 기댓 값 계산기 추가
             <br />2025.04.30 다크모드 추가, UI 수정
             <br />2025.02.23 융화 재료 제작 | 사용자 가격입력 추가
             <br />2025.02.10 생활 가루 계산기 | 복구

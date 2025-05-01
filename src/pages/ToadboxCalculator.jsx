@@ -48,13 +48,20 @@ export default function ToadboxCalculator() {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">골두꺼비 기댓값 계산기</h1>
-      <p className="page-subtitle">재련 상자는 원하지 않는 항목을 제외할 수 있어요.</p>
+      <h1 className="page-title">골두꺼비 기댓값 계산기 (실시간)</h1>
+      <p className="page-subtitle">
+        ※ 재련 상자는 원하지 않는 항목을 제외할 수 있어요. <br/>
+        ※ 갱신주기 1분. <br/>
+        <span className="red">
+        ※ 재련 랜덤 상자 2  | 야금술 : 업화 [15 - 18] 재봉술 : 업화 [15 - 18] 누락됨 <br/>
+        &nbsp; ㄴ 인게임 거래소에서만 검색 가능 (api 아직 추가 안된 것 같아요 공홈에서도 검색 X)
+        </span>
+      </p>
+
 
       <label style={{ fontSize: '14px', marginBottom: '20px', display: 'inline-block' }}>
         <input type="checkbox" checked={applyFee} onChange={() => setApplyFee(!applyFee)} style={{ marginRight: '6px' }} />
         거래소 수수료 5% 적용 &nbsp; ( 최종 적용 | 세세한 계산 X ) <br />
-        <p className="red">※ 재련 랜덤 상자 2  | 야금술 : 업화 [15 - 18] 재봉술 : 업화 [15 - 18] 누락됨 </p>
       </label>
 
       {Object.entries(boxes).map(([key, box]) => {
@@ -82,15 +89,6 @@ export default function ToadboxCalculator() {
 
                 return (
                   <div key={item.name} className="item-card">
-                    <img src={item.icon} alt={item.name} className="item-icon" />
-                    <span className="item-name">
-                    {item.name}
-                    <br />
-                    <span style={{ fontSize: '12px', color: '#888' }}>
-                        {(item.price * item.count).toLocaleString()} G <br/> {(item.probability * 100).toFixed(2)}%
-                    </span>
-                    </span>
-
                     {showCheckbox && (
                       <label className="checkbox-label">
                         <input
@@ -100,6 +98,14 @@ export default function ToadboxCalculator() {
                         /> 포함
                       </label>
                     )}
+                    <img src={item.icon} alt={item.name} className="item-icon" />
+                    <span className="item-name">
+                    {item.name}
+                    <br />
+                    <span style={{ fontSize: '12px', color: '#888' }}>
+                        {(item.price * item.count).toLocaleString()} G <br/> {(item.probability * 100).toFixed(2)}%
+                    </span>
+                    </span>
                   </div>
                 );
               })}
