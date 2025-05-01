@@ -68,7 +68,7 @@ export default function ToadboxCalculator() {
         ※ 재련 상자는 원하지 않는 항목을 제외할 수 있어요. <br/>
         <span className="red">
         ※ 재련 랜덤 상자 2  | 야금술 : 업화 [15 - 18] 재봉술 : 업화 [15 - 18] 누락됨 <br/>
-        &nbsp; ㄴ 인게임 거래소에서만 검색 가능 (api 아직 추가 안된 것 같아요 공홈에서도 검색 X)
+        &nbsp; ㄴ 직접 추가 가능 (인게임 거래소 참고)
         </span>
       </p>
 
