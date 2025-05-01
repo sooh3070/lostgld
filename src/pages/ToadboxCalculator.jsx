@@ -179,15 +179,16 @@ export default function ToadboxCalculator() {
                   );
                 })}
               </div>
-              <AdComponent
-                className="horizontal-ad"
-                adClient="ca-pub-4349329556962059"
-                adSlot="5655624736"
-                adType="horizontal"
-              />
             </div>
           );
         })}
+      <br/>
+      <AdComponent
+        className="horizontal-ad"
+        adClient="ca-pub-4349329556962059"
+        adSlot="5655624736"
+        adType="horizontal"
+      />
       </div>
     </div>
   );
