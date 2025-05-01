@@ -7,12 +7,25 @@ export default function ToadboxCalculator() {
   const [data, setData] = useState(null);
   const [excluded, setExcluded] = useState({});
   const [applyFee, setApplyFee] = useState(false);
+  const [manualPrices, setManualPrices] = useState({
+    "야금술 : 업화 [15-18]": "",
+    "재봉술 : 업화 [15-18]": ""
+  });
+  
 
   useEffect(() => {
     fetchToadboxData().then((res) => {
       setData(res);
     });
   }, []);
+
+  const handleManualPriceChange = (itemName, value) => {
+    setManualPrices((prev) => ({
+      ...prev,
+      [itemName]: Number(value) || 0
+    }));
+  };
+  
 
   const handleToggle = (boxKey, itemName) => {
     setExcluded((prev) => {
@@ -31,11 +44,13 @@ export default function ToadboxCalculator() {
     let ev = items.reduce((sum, item) => {
       const key = `${boxKey}::${item.name}`;
       if (excluded[key]) return sum;
-      const unitPrice = item.price / item.bundle_count;
+      const rawPrice = item.price > 0 ? item.price : manualPrices[item.name] || 0;
+      const unitPrice = rawPrice / item.bundle_count;
       return sum + unitPrice * item.count * item.probability;
     }, 0);
     return Math.floor(applyFee ? ev * 0.95 : ev);
   };
+  
 
   if (!data) return <div className="loading-container">데이터 불러오는 중...</div>;
 
@@ -64,6 +79,32 @@ export default function ToadboxCalculator() {
       </label>
 
       {Object.entries(boxes).map(([key, box]) => {
+        if (key === "reagent_box_2") {
+          const manualItemNames = ["야금술 : 업화 [15-18]", "재봉술 : 업화 [15-18]"];
+          const alreadyAdded = box.items.some(item => manualItemNames.includes(item.name));
+          
+          if (!alreadyAdded) {
+            const manualItems = [
+              {
+                name: "야금술 : 업화 [15-18]",
+                icon: "https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_12_218.png",
+                price: manualPrices["야금술 : 업화 [15-18]"],
+                bundle_count: 1,
+                count: 1,
+                probability: 0.005682
+              },
+              {
+                name: "재봉술 : 업화 [15-18]",
+                icon: "https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_12_219.png",
+                price: manualPrices["재봉술 : 업화 [15-18]"],
+                bundle_count: 1,
+                count: 1,
+                probability: 0.028409
+              }
+            ];
+            box.items = [...box.items, ...manualItems];
+          }
+        }
         const ev = calculateEV(box.items, key);
         const price = prices[key];
         const efficiency = price ? Math.round(((ev - price) / price) * 100) : 0;
@@ -102,7 +143,24 @@ export default function ToadboxCalculator() {
                     {item.name}
                     <br />
                     <span style={{ fontSize: '12px', color: '#888' }}>
-                        {(item.price * item.count).toLocaleString()} G <br/> {(item.probability * 100).toFixed(2)}%
+                      {item.price > 0 ? (
+                        <>
+                          {Math.floor((item.price / item.bundle_count) * item.count).toLocaleString()} G <br />
+                          {(item.probability * 100).toFixed(2)}%
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="number"
+                            value={manualPrices[item.name]}
+                            onChange={(e) => handleManualPriceChange(item.name, e.target.value)}
+                            placeholder="0G"
+                            className="manual-input"
+                          />
+                          <br />
+                          {(item.probability * 100).toFixed(2)}%
+                        </>
+                      )}
                     </span>
                     </span>
                   </div>

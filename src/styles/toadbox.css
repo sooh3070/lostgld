@@ -43,3 +43,16 @@
     display: none;
   }
   
+  .manual-input {
+    width: 60px;
+    height: 16px;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background-color: var(--box-bg); /* 어울리는 배경색 */
+    color: var(--text);
+    font-family: var(--font-main);
+    margin-top: 4px;
+  }
+  
