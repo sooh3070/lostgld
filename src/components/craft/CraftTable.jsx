@@ -67,9 +67,10 @@ const CraftTable = () => {
                             type="number"
                             value={item.price}
                             onChange={(e) =>
-                              handlePriceChange(index, subIndex, parseInt(e.target.value, 10) || 0)
+                              handlePriceChange(index, subIndex, parseInt(e.target.value, 10) || '')
                             }
                             className="price-input"
+                            placeholder="0"
                           />
                         )}G
                       </td>

@@ -95,71 +95,109 @@ const craftSlice = createSlice({
       state.originalCraftData[entryIndex] = updatedEntry;
     },
     updateItemPrice: (state, action) => {
-      const { entryIndex, itemIndex, newPrice } = action.payload;
+      const { entryIndex, itemIndex, newPrice, target } = action.payload;
       const entry = state.craftData[entryIndex];
       if (!entry) return;
-    
-      // 업데이트 시 기존의 selection 플래그를 그대로 유지
+
+      const getAdjustedOutputCount = () => {
+        const name = entry.header.name;
+        if (name.includes('최상급 오레하')) return 15;
+        if (name.includes('상급 오레하')) return 20;
+        if (name.includes('오레하')) return 30;
+        return entry.header.price1 > 0 ? entry.header.price / entry.header.price1 : 10;
+      };
+
+      const outputCount = getAdjustedOutputCount();
+
+      // ✅ 헤더 가격 입력 처리
+      if (target === 'headerPrice1') {
+        entry.header.price1 = newPrice;
+        entry.header.price = newPrice * outputCount;
+
+        const doublecraft = 5 + 5 * (state.craftingSuccessRate / 100);
+        const price = entry.header.price;
+        const charge = Math.round(newPrice * 0.05) * outputCount;
+        const craftingCost = entry.header.craftingCost;
+
+        const profit = price + ((price - charge) * doublecraft / 100) - craftingCost - charge;
+
+        entry.header.profit = profit;
+        entry.header.charge = charge;
+
+        state.craftData[entryIndex] = entry;
+        state.originalCraftData[entryIndex] = entry;
+        return;
+      }
+
+      // ✅ 아이템 가격 수정 (단 isDerived 제외)
       const updatedItems = entry.items.map((item, idx) => {
-        // 파생 항목은 수정 불가
         if (item.isDerived) return item;
         if (idx === itemIndex) {
           return {
             ...item,
             price: newPrice,
-            total: Math.floor((item.count * newPrice) / item.bundleCount * 100) / 100,
+            total: Math.floor((item.count * newPrice / item.bundleCount) * 100) / 100,
           };
         }
         return item;
       });
-    
-      // 첫번째 항목(인덱스 0)이 수정되면 파생 항목 derivedItem6 (인덱스 3) 재계산 시 기존 선택값 유지
-      if (itemIndex === 0) {
-        const updatedItem2 = updatedItems[0];
-        const item4 = updatedItems[2]; // item4는 변하지 않음
-        if (item4) {
-          const newCount = item4.count * 12.5;
-          const newTotal = Math.floor((newCount * updatedItem2.price / updatedItem2.bundleCount) * 100) / 100;
-          const previousSelected = entry.items[3]?.isSelected || false;
-          updatedItems[3] = {
-            ...updatedItem2,
-            count: newCount,
-            total: newTotal,
-            name: "가루: " + updatedItem2.name,
-            isDerived: true,
-            isSelected: previousSelected,
-          };
-        }
+
+      // ✅ item4 기준 수량 확보
+      const item4Count = updatedItems[2]?.count || entry.items[2].count;
+
+      // ✅ 파생 항목 재계산 (항상 item4.count 기준 + isSelected 유지)
+      const derivedPairs = [
+        { baseIndex: 0, multiplier: 12.5 },
+        { baseIndex: 1, multiplier: 6.25 },
+      ];
+
+      for (const { baseIndex, multiplier } of derivedPairs) {
+        const base = updatedItems[baseIndex];
+        const originalName = entry.items[baseIndex].name;
+        const derivedName = `가루: ${originalName}`;
+
+        const derivedIndex = updatedItems.findIndex(
+          (item) => item.isDerived && item.name === derivedName
+        );
+        if (derivedIndex === -1) continue;
+
+        const derivedCount = item4Count * multiplier;
+        const derivedTotal = Math.floor((derivedCount * base.price / base.bundleCount) * 100) / 100;
+        const previousSelected = entry.items[derivedIndex]?.isSelected || false;
+
+        updatedItems[derivedIndex] = {
+          ...base,
+          name: derivedName,
+          icon: "https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_10_40.png",
+          count: derivedCount,
+          total: derivedTotal,
+          bundleCount: base.bundleCount,
+          isDerived: true,
+          isSelected: previousSelected,
+        };
       }
-    
-      // 두번째 항목(인덱스 1)이 수정되면 파생 항목 derivedItem7 (인덱스 4) 재계산 시 기존 선택값 유지
-      if (itemIndex === 1) {
-        const updatedItem3 = updatedItems[1];
-        const item4 = updatedItems[2];
-        if (item4) {
-          const newCount = item4.count * 6.25;
-          const newTotal = Math.floor((newCount * updatedItem3.price / updatedItem3.bundleCount) * 100) / 100;
-          const previousSelected = entry.items[4]?.isSelected || false;
-          updatedItems[4] = {
-            ...updatedItem3,
-            count: newCount,
-            total: newTotal,
-            name: "가루: " + updatedItem3.name,
-            isDerived: true,
-            isSelected: previousSelected,
-          };
-        }
-      }
-    
-      // 나머지 계산은 기존 선택 상태(인덱스 2 이상의 항목) 보존하여 재계산
+
+      // ✅ 선택된 항목 기준으로 제작비 계산 (isDerived 허용)
       const fixedItems = [updatedItems[0], updatedItems[1]];
       const selectedItem = updatedItems.find((item, idx) => idx >= 2 && item.isSelected);
       const selectedTotal = selectedItem ? selectedItem.total : 0;
-      const materialSum = Math.floor((fixedItems[0].total + fixedItems[1].total + selectedTotal) * 100) / 100;
-      const craftingCostCalc = Math.floor((parseFloat(entry.footer.craftingFee.replace('G', '')) + materialSum) * 100) / 100;
+
+      const materialSum = Math.floor(
+        (fixedItems[0]?.total || 0) +
+        (fixedItems[1]?.total || 0) +
+        selectedTotal
+      ) * 100 / 100;
+
+      const craftingFee = parseFloat(entry.footer.craftingFee.replace('G', '')) || 0;
+      const craftingCostCalc = Math.floor((craftingFee + materialSum) * 100) / 100;
+
       const doublecraft = 5 + 5 * (state.craftingSuccessRate / 100);
-      const profit = entry.header.price + ((entry.header.price - entry.header.charge) * doublecraft / 100) - craftingCostCalc - entry.header.charge;
-      
+      const price = entry.header.price;
+      const charge = Math.round(entry.header.price1 * 0.05) * outputCount;
+
+      const profit = price + ((price - charge) * doublecraft / 100) - craftingCostCalc - charge;
+
+      // ✅ 최종 반영
       const updatedEntry = {
         ...entry,
         items: updatedItems,
@@ -172,13 +210,15 @@ const craftSlice = createSlice({
           ...entry.header,
           profit,
           craftingCost: craftingCostCalc,
+          charge,
         },
       };
-    
+
       state.craftData[entryIndex] = updatedEntry;
       state.originalCraftData[entryIndex] = updatedEntry;
-    },
-    
+    }
+
+
   },
   extraReducers: (builder) => {
     builder
