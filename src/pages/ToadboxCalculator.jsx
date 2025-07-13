@@ -27,7 +27,7 @@ export default function ToadboxCalculator() {
 
   const handleToggle = (boxKey, itemName) => {
     setExcluded((prev) => {
-      const key = `${boxKey}::${itemName}`;
+      const key = `${boxKey}::${item.name}`;
       const updated = { ...prev };
       if (updated[key]) {
         delete updated[key];
@@ -52,10 +52,6 @@ export default function ToadboxCalculator() {
   if (!data) return <div className="loading-container">데이터 불러오는 중...</div>;
 
   const boxes = data.boxes;
-  const prices = {
-    engraving_box: 20000,
-    dark_reagent_box: 1200,
-  };
 
   return (
     <div>
@@ -71,7 +67,7 @@ export default function ToadboxCalculator() {
       <div className="page-container">
         <h1 className="page-title">카멘 익스트림 교환 기댓값 계산기 (1분 갱신)</h1>
         <p className="page-subtitle">
-          ※ 재련 상자는 원하지 않는 항목을 제외할 수 있어요. <br/>
+          ※ 재련 상자는 원하지 않는 항목을 제외할 수 있어요. <br />
         </p>
 
         <label style={{ fontSize: '14px', marginBottom: '20px', display: 'inline-block' }}>
@@ -110,19 +106,18 @@ export default function ToadboxCalculator() {
             }
 
             const ev = calculateEV(box.items, key);
-            const price = prices[key];
-            const efficiency = price ? Math.round(((ev - price) / price) * 100) : 0;
-
             const isEngraving = key === "engraving_box";
             const boxTitle = isEngraving
               ? "유물 각인서 랜덤 주머니"
-              : "재련 랜덤 상자 III";
+              : "어둠의 재련 재료 상자";
+
+            const priceLabel = isEngraving ? "주화 5개" : "주화 1개";
 
             return (
               <div key={key} style={{ marginBottom: "30px" }}>
                 <h2 style={{ fontSize: "22px", fontWeight: "bold" }}>{boxTitle}</h2>
                 <p style={{ marginBottom: "10px" }}>
-                  기댓값: <b>{ev.toLocaleString()}</b> G / 가격: {price.toLocaleString()} G / 효율: <b>{efficiency > 0 ? `+${efficiency}%` : `${efficiency}%`}</b>
+                  기댓값: <b>{ev.toLocaleString()}</b> G / 가격: <b>{priceLabel}</b>
                 </p>
                 <div className={`item-list ${isEngraving ? 'engraving-hidden' : ''}`}>
                   {box.items.map((item) => {
