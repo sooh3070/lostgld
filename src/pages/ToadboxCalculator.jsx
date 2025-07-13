@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchToadboxData } from '../services/LostArkApi';
+import { fetchToadboxData } from "../services/LostArkApi";
 import "../styles/toadbox.css";
-import AdComponent from '../components/AdComponent';
+import AdComponent from "../components/AdComponent";
 
 export default function ToadboxCalculator() {
   const [data, setData] = useState(null);
@@ -9,7 +9,7 @@ export default function ToadboxCalculator() {
   const [applyFee, setApplyFee] = useState(false);
   const [manualPrices, setManualPrices] = useState({
     "야금술 : 업화 [15-18]": "",
-    "재봉술 : 업화 [15-18]": ""
+    "재봉술 : 업화 [15-18]": "",
   });
 
   useEffect(() => {
@@ -21,13 +21,13 @@ export default function ToadboxCalculator() {
   const handleManualPriceChange = (itemName, value) => {
     setManualPrices((prev) => ({
       ...prev,
-      [itemName]: Number(value) || 0
+      [itemName]: Number(value) || 0,
     }));
   };
 
   const handleToggle = (boxKey, itemName) => {
     setExcluded((prev) => {
-      const key = `${boxKey}::${item.name}`;
+      const key = `${boxKey}::${itemName}`; // ✅ 수정된 부분
       const updated = { ...prev };
       if (updated[key]) {
         delete updated[key];
@@ -39,7 +39,7 @@ export default function ToadboxCalculator() {
   };
 
   const calculateEV = (items, boxKey) => {
-    let ev = items.reduce((sum, item) => {
+    const ev = items.reduce((sum, item) => {
       const key = `${boxKey}::${item.name}`;
       if (excluded[key]) return sum;
       const rawPrice = item.price ?? manualPrices[item.name] ?? 0;
@@ -70,9 +70,14 @@ export default function ToadboxCalculator() {
           ※ 재련 상자는 원하지 않는 항목을 제외할 수 있어요. <br />
         </p>
 
-        <label style={{ fontSize: '14px', marginBottom: '20px', display: 'inline-block' }}>
-          <input type="checkbox" checked={applyFee} onChange={() => setApplyFee(!applyFee)} style={{ marginRight: '6px' }} />
-          거래소 수수료 5% 적용 &nbsp; ( 최종 적용 | 세세한 계산 X ) <br />
+        <label style={{ fontSize: "14px", marginBottom: "20px", display: "inline-block" }}>
+          <input
+            type="checkbox"
+            checked={applyFee}
+            onChange={() => setApplyFee(!applyFee)}
+            style={{ marginRight: "6px" }}
+          />
+          거래소 수수료 5% 적용 &nbsp; <br />
         </label>
 
         {Object.entries(boxes)
@@ -80,7 +85,7 @@ export default function ToadboxCalculator() {
           .map(([key, box]) => {
             if (key === "dark_reagent_box") {
               const manualItemNames = ["야금술 : 업화 [15-18]", "재봉술 : 업화 [15-18]"];
-              const alreadyAdded = box.items.some(item => manualItemNames.includes(item.name));
+              const alreadyAdded = box.items.some((item) => manualItemNames.includes(item.name));
 
               if (!alreadyAdded) {
                 const manualItems = [
@@ -90,7 +95,7 @@ export default function ToadboxCalculator() {
                     price: manualPrices["야금술 : 업화 [15-18]"],
                     bundle_count: 1,
                     count: 1,
-                    probability: 0.005682
+                    probability: 0.005682,
                   },
                   {
                     name: "재봉술 : 업화 [15-18]",
@@ -98,8 +103,8 @@ export default function ToadboxCalculator() {
                     price: manualPrices["재봉술 : 업화 [15-18]"],
                     bundle_count: 1,
                     count: 1,
-                    probability: 0.028409
-                  }
+                    probability: 0.028409,
+                  },
                 ];
                 box.items = [...box.items, ...manualItems];
               }
@@ -107,10 +112,7 @@ export default function ToadboxCalculator() {
 
             const ev = calculateEV(box.items, key);
             const isEngraving = key === "engraving_box";
-            const boxTitle = isEngraving
-              ? "유물 각인서 랜덤 주머니"
-              : "어둠의 재련 재료 상자";
-
+            const boxTitle = isEngraving ? "유물 각인서 랜덤 주머니" : "어둠의 재련 재료 상자";
             const priceLabel = isEngraving ? "주화 5개" : "주화 1개";
 
             return (
@@ -119,7 +121,7 @@ export default function ToadboxCalculator() {
                 <p style={{ marginBottom: "10px" }}>
                   기댓값: <b>{ev.toLocaleString()}</b> G / 가격: <b>{priceLabel}</b>
                 </p>
-                <div className={`item-list ${isEngraving ? 'engraving-hidden' : ''}`}>
+                <div className={`item-list ${isEngraving ? "engraving-hidden" : ""}`}>
                   {box.items.map((item) => {
                     const isChecked = !excluded[`${key}::${item.name}`];
                     const showCheckbox = box.type === "reagents";
@@ -132,17 +134,25 @@ export default function ToadboxCalculator() {
                               type="checkbox"
                               checked={isChecked}
                               onChange={() => handleToggle(key, item.name)}
-                            /> 포함
+                            />{" "}
+                            포함
                           </label>
                         )}
                         <img src={item.icon} alt={item.name} className="item-icon" />
                         <span className="item-name">
                           {item.name}
                           <br />
-                          <span style={{ fontSize: '12px', color: '#888' }}>
+                          <span style={{ fontSize: "12px", color: "#888" }}>
                             {(item.price ?? manualPrices[item.name]) > 0 ? (
                               <>
-                                {(Math.floor(((item.price ?? manualPrices[item.name]) / item.bundle_count) * item.count) || 0).toLocaleString()} G<br />
+                                {(
+                                  Math.floor(
+                                    ((item.price ?? manualPrices[item.name]) / item.bundle_count) *
+                                      item.count
+                                  ) || 0
+                                ).toLocaleString()}{" "}
+                                G
+                                <br />
                                 {(item.probability * 100).toFixed(2)}%
                               </>
                             ) : (
@@ -150,7 +160,9 @@ export default function ToadboxCalculator() {
                                 <input
                                   type="number"
                                   value={manualPrices[item.name]}
-                                  onChange={(e) => handleManualPriceChange(item.name, e.target.value)}
+                                  onChange={(e) =>
+                                    handleManualPriceChange(item.name, e.target.value)
+                                  }
                                   placeholder="0G"
                                   className="manual-input"
                                 />
@@ -166,7 +178,7 @@ export default function ToadboxCalculator() {
                 </div>
               </div>
             );
-        })}
+          })}
 
         <br />
         <AdComponent
