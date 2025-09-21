@@ -1,17 +1,3 @@
-/* 전체 헤더 스타일 */
-.header {
-  height: 60px;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--header-bg); /* theme.css에서 정의됨 */
-  border-bottom: 1.5px solid var(--header-border);
-}
-
 /* 내부 컨테이너 */
 .header-content {
   width: 1200px;
@@ -80,19 +66,62 @@
   transform: scale(1.2);
 }
 
+.desktop-header {
+  height: 60px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--header-bg); /* theme.css에서 정의됨 */
+  border-bottom: 1.5px solid var(--header-border);
+}
+/* 모바일 하단 네비게이션 */
+.mobile-nav {
+  display: none;
+}
+
+.mobile-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+
 /* 모바일 반응형 */
 @media (max-width: 768px) {
-  .header-content {
+  .desktop-header {
+    display: none; /* 모바일에서는 상단 헤더 숨김 */
+  }
+
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    padding: 0 10px;
+    height: 55px;
+    background-color: var(--header-bg);
+    border-top: 1.5px solid var(--header-border);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
   }
 
-  .header-nav {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .header-link {
+  .mobile-nav-item {
     font-size: 14px;
+    color: var(--header-link);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .mobile-nav-item:hover {
+    color: var(--header-link-hover);
   }
 }
