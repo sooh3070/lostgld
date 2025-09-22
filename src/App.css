@@ -43,6 +43,9 @@
     height: 0px;
     display: none; /* 모바일에서는 광고 숨기기 */
   }
+  .app-content {
+    padding-bottom: 80px; /* 광고 대신 하단 공백 확보 */
+  }
 }
 
 @media (max-width: 1600px) {
@@ -50,5 +53,8 @@
     width: 0px;
     height: 0px;
     display: none; /* 모바일에서는 광고 숨기기 */
+  }
+  .app-content {
+    padding-bottom: 80px; /* 광고 대신 하단 공백 확보 */
   }
 }
