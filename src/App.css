@@ -30,11 +30,11 @@
 }
 
 .side-ad-left {
-  left: calc((100% - 1500px) / 2 - 50px); /* 컨테이너 왼쪽에서 10px 떨어지도록 계산 */
+  left: calc((100% - 1500px) / 2 - 10px); /* 컨테이너 왼쪽에서 10px 떨어지도록 계산 */
 }
 
 .side-ad-right {
-  right: calc((100% - 1500px) / 2 - 50px); /* 컨테이너 오른쪽에서 10px 떨어지도록 계산 */
+  right: calc((100% - 1500px) / 2 - 10px); /* 컨테이너 오른쪽에서 10px 떨어지도록 계산 */
 }
 
 @media (max-width: 768px) {
@@ -48,7 +48,7 @@
   }
 }
 
-@media (max-width: 1601px) {
+@media (max-width: 1500px) {
   .side-ad {
     width: 0px;
     height: 0px;
