@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 백엔드 서버 URL 설정 (개발/프로덕션 환경에 맞게 변경)
-const BACKEND_API_URL = 'https://api.lostgld.com'; // 개발: http://localhost:8000, 프로덕션: https://api.lostgld.com
+const BACKEND_API_URL = 'http://localhost:8000'; // 개발: http://localhost:8000, 프로덕션: https://api.lostgld.com
 
 /**
  * /data-pve 엔드포인트에서 PVE 효율 데이터 가져오기

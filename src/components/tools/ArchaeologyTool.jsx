@@ -6,8 +6,8 @@ import CombinedInput from "./input/CombinedInput";
 import ResultBox from "./input/ResultBox";
 import ResultTable from "./input/ResultTable"; // ResultTable 컴포넌트 추가
 import { fetchLifeEfficiencyData } from "../../services/LostArkApi"; // API 호출 파일
-import ToolChart from "./hook/ToolChart"; // 차트 컴포넌트 추가
-import GaugeChart from "./hook/GaugeChart"; // 📌 새롭게 추가된 게이지 차트
+import ToolChart from "./hook/ToolChart";
+import GaugeChart from "./hook/GaugeChart";
 
 const ArchaeologyTool = () => {
   const [toolOptions, setToolOptions] = useState({
@@ -23,26 +23,22 @@ const ArchaeologyTool = () => {
   const [amulet, setAmulet] = useState("유물");
   const [level, setLevel] = useState(70);
   const [epic, setEpic] = useState(15);
-  const [toolChartData, setToolChartData] = useState(null); // 🔹 차트 데이터 상태 추가
+  const [toolChartData, setToolChartData] = useState(null);
 
-   // 추가옵션2 값 동적 계산 로직
+  // ✅ 프리셋 관리
+  const [presets, setPresets] = useState([]);
+
+  // 추가옵션2 계산
   const calculateAdditionalOptions = (specialFrequency) => {
     const 일반보상 = 54;
-  
-    // 기본 특수 채집물 빈도를 사용자 입력으로 대체
     const 발생빈도 = specialFrequency / 100;
-  
-    // 기본 보상 계산
-    const 기본보상 =
-    (일반보상 + 일반보상 * 발생빈도);
-    // 추가 보상 계산
-    const 추가보상 =
-      기본보상 * 0.01;
-  
+    const 기본보상 = 일반보상 + 일반보상 * 발생빈도;
+    const 추가보상 = 기본보상 * 0.01;
+
     return {
-      일반: { 기본: 기본보상, 증가량: 추가보상 }, // 일반
-      고급: { 기본: 기본보상*0.5, 증가량: 추가보상 * 0.5 }, // 고급 (50%)
-      희귀: { 기본: 기본보상*0.2, 증가량: 추가보상 * 0.2 }, // 희귀 (20%)
+      일반: { 기본: 기본보상, 증가량: 추가보상 },
+      고급: { 기본: 기본보상 * 0.5, 증가량: 추가보상 * 0.5 },
+      희귀: { 기본: 기본보상 * 0.2, 증가량: 추가보상 * 0.2 },
     };
   };
 
@@ -55,18 +51,14 @@ const ArchaeologyTool = () => {
       추가옵션1: { 기본: 5, 증가량: 0.05 },
       추가옵션2: calculateAdditionalOptions(epic),
       추가옵션3: { 기본: 4.3, 증가량: 0.043 },
-      추가옵션평균: {
-        일반: 54,
-        고급: 27,
-        희귀: 10.8,
-      },
+      추가옵션평균: { 일반: 54, 고급: 27, 희귀: 10.8 },
     }
   );
 
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
-  const [lumberingData, setLumberingData] = useState(null); // 벌목 데이터 상태
+  const [isLoading, setIsLoading] = useState(true);
+  const [lumberingData, setLumberingData] = useState(null);
 
-  // 데이터 가져오기 및 초기화
+  // 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -80,10 +72,10 @@ const ArchaeologyTool = () => {
             ...filteredData,
             items: filteredData.items.map((item) => ({
               ...item,
-              count: 0, // 획득 개수를 0으로 설정
-              total_price: 0, // 초기 total_price도 0으로 설정
+              count: 0,
+              total_price: 0,
             })),
-            total_gold: 0, // 초기 총합 골드도 0으로 설정
+            total_gold: 0,
           }
         : null;
 
@@ -94,65 +86,76 @@ const ArchaeologyTool = () => {
     fetchData();
   }, []);
 
-  // 데이터 매핑 함수
+  // ✅ 프리셋 로드
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("toolPresets")) || [];
+    const filtered = stored.filter((p) => p.toolType === "archaeology");
+    setPresets(filtered);
+  }, []);
+
+  // ✅ 프리셋 적용
+  const handleLoadPreset = (preset) => {
+    setToolOptions(preset.options);
+  };
+
+  // ✅ 프리셋 삭제
+  const handleDeletePreset = (id) => {
+    const stored = JSON.parse(localStorage.getItem("toolPresets")) || [];
+    const updated = stored.filter((p) => p.id !== id);
+    localStorage.setItem("toolPresets", JSON.stringify(updated));
+    setPresets(updated.filter((p) => p.toolType === "archaeology"));
+  };
+
+  // 데이터 매핑
   const mapResultData = (data) => {
     if (!data) return null;
-
     return {
       "고대 유물": data.일반 || 0,
       "희귀한 유물": data.고급 || 0,
       "진귀한 유물": data.희귀 || 0,
-      "아비도스 유물": data.희귀 || 0, // 희귀 항목을 아비도스 목재에도 매핑
+      "아비도스 유물": data.희귀 || 0,
     };
   };
 
-// 📌 테이블 업데이트 핸들러 (선택된 박스 데이터 적용, ToolChart는 항상 도구추가획득량 사용)
-const handleResultBoxClick = (mappedData) => {
-  if (!mappedData || !lumberingData) return;
+  // 결과 박스 클릭
+  const handleResultBoxClick = (mappedData) => {
+    if (!mappedData || !lumberingData) return;
 
-  // 선택된 박스 데이터를 기반으로 `lumberingData` 업데이트
-  const updatedItems = lumberingData.items.map((item) => {
-    const mappedValue = mappedData[item.name]; // 선택된 박스 데이터 적용
-    const updatedCount = Math.floor(mappedValue || 0); // 값이 없으면 0 처리
-    const updatedTotalPrice = Math.floor(
-      (updatedCount * (item.price || 0)) / 100 // 가격 계산
+    const updatedItems = lumberingData.items.map((item) => {
+      const mappedValue = mappedData[item.name];
+      const updatedCount = Math.floor(mappedValue || 0);
+      const updatedTotalPrice = Math.floor(
+        (updatedCount * (item.price || 0)) / 100
+      );
+      return { ...item, count: updatedCount, total_price: updatedTotalPrice };
+    });
+
+    const updatedTotalGold = updatedItems.reduce(
+      (sum, item) => sum + item.total_price,
+      0
     );
 
-    return {
-      ...item,
-      count: updatedCount,
-      total_price: updatedTotalPrice,
-    };
-  });
+    setLumberingData({
+      ...lumberingData,
+      items: updatedItems,
+      total_gold: updatedTotalGold,
+    });
 
-  const updatedTotalGold = updatedItems.reduce(
-    (sum, item) => sum + item.total_price,
-    0
-  );
+    const toolChartMappedData = mapResultData(결과?.도구추가획득량);
+    const toolChartItems = lumberingData.items.map((item) => ({
+      name: item.name,
+      count: Math.floor(toolChartMappedData[item.name] || 0),
+      price: item.price,
+      totalPrice: Math.floor(
+        (Math.floor(toolChartMappedData[item.name] || 0) * (item.price || 0)) /
+          100
+      ),
+    }));
 
-  // 📌 `lumberingData`는 선택된 박스 데이터로 업데이트 (유지)
-  setLumberingData({
-    ...lumberingData,
-    items: updatedItems,
-    total_gold: updatedTotalGold,
-  });
+    setToolChartData(toolChartItems);
+  };
 
-  // 📌 ToolChart에는 항상 `도구추가획득량`을 기준으로 데이터 생성
-  const toolChartMappedData = mapResultData(결과?.도구추가획득량);
-  const toolChartItems = lumberingData.items.map((item) => ({
-    name: item.name, // 목재, 부드러운 목재, 튼튼한 목재, 아비도스 목재
-    count: Math.floor(toolChartMappedData[item.name] || 0), // 도구추가획득량 기준
-    price: item.price, // 개별 가격
-    totalPrice: Math.floor(
-      (Math.floor(toolChartMappedData[item.name] || 0) * (item.price || 0)) / 100
-    ),
-  }));
-
-  // 📌 `ToolChart`에 전달할 데이터 저장 (항상 도구추가획득량 기준)
-  setToolChartData(toolChartItems);
-};
-
-  // 제출 핸들러
+  // 제출
   const handleSubmit = () => {
     setUserOptions({
       일반등급보상: toolOptions.일반등급재료획득률,
@@ -167,31 +170,17 @@ const handleResultBoxClick = (mappedData) => {
     });
   };
 
-  // 로컬 스토리지 저장 핸들러
+  // 로컬 스토리지 저장
   const handleSaveToLocalStorage = () => {
     if (!lumberingData) return;
-  
-    // 기존 로컬 스토리지 데이터 가져오기
     const existingData = JSON.parse(localStorage.getItem("userInput")) || {};
-  
-    // 새로운 고고학 데이터 생성
     const updatedArchaeologyData = lumberingData.items.reduce((acc, item) => {
       acc[`4T 고고학(만생기 기준)-${item.name}`] = item.count;
       return acc;
     }, {});
-  
-    // 기존 데이터에 새로운 고고학 데이터 병합
-    const updatedData = {
-      ...existingData, // 기존 데이터 유지
-      ...updatedArchaeologyData, // 고고학 데이터 덮어쓰기
-    };
-  
-    // 병합된 데이터를 로컬 스토리지에 저장
+    const updatedData = { ...existingData, ...updatedArchaeologyData };
     localStorage.setItem("userInput", JSON.stringify(updatedData));
-  
-    alert(
-      "데이터가 저장되었습니다! \n생활 효율 페이지에서 비교 \n쿠키 관리 페이지에서 관리 가능합니다!"
-    );
+    alert("데이터가 저장되었습니다!");
   };
 
   return (
@@ -203,6 +192,32 @@ const handleResultBoxClick = (mappedData) => {
             &#9432;
           </Link>
         </h1>
+
+        {/* ✅ 프리셋 카드형 + 가로 스크롤 */}
+        {presets.length > 0 ? (
+          <div className="preset-list">
+            {presets.map((preset) => (
+              <div
+                key={preset.id}
+                className="preset-card"
+                onClick={() => handleLoadPreset(preset)}
+              >
+                <span className="preset-name">{preset.name}</span>
+                <button
+                  className="preset-btn preset-delete"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeletePreset(preset.id);
+                  }}
+                >
+                  삭제
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="no-presets">저장된 프리셋이 없습니다.</p>
+        )}
       </header>
 
       <div className="flex-container">
@@ -216,6 +231,10 @@ const handleResultBoxClick = (mappedData) => {
           epic={epic}
           setEpic={setEpic}
           handleSubmit={handleSubmit}
+          selectedTool="archaeology"
+          toolName="고고학"
+          // ✅ 저장 시 즉시 반영
+          onPresetSaved={(updated) => setPresets(updated)}
         />
       </div>
 
@@ -249,16 +268,16 @@ const handleResultBoxClick = (mappedData) => {
           <p>데이터가 없습니다.</p>
         )}
       </div>
-      {/* 📌 게이지 차트 추가 */}
+
       <div className="Gauge-container">
         <h2>도구 성능</h2>
         <GaugeChart toolChartData={toolChartData} />
-      </div>      
-      {/* 차트 추가 */}
+      </div>
+
       <div className="chart-container">
         <h2>옵션 분석 결과</h2>
         <ToolChart toolOptions={toolOptions} toolChartData={toolChartData} />
-      </div>      
+      </div>
     </div>
   );
 };

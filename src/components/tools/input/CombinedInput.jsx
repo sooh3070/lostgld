@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/ToolInput.css";
 import "../styles/ToolTable.css"; // 테이블 스타일
@@ -12,25 +13,75 @@ const CombinedInput = ({
   epic,
   setEpic,
   handleSubmit,
+  selectedTool,   // ✅ 현재 도구 종류 (예: lumbering, mining, fishing, archaeology)
+  toolName,       // ✅ 한국어 도구 이름 (예: 벌목, 채광, 낚시, 고고학)
+  onPresetSaved,  // ✅ 프리셋 저장 시 상위에 알림
 }) => {
-// 입력 필드 변경 핸들러 (ToolOptions)
-const handleOptionChange = (field, value) => {
-  setToolOptions({
-    ...toolOptions,
-    [field]: value === '' ? 0 : parseFloat(value) || 0,
-  });
-};
+  const [presetName, setPresetName] = useState("");
+
+  // 입력 필드 변경 핸들러 (ToolOptions)
+  const handleOptionChange = (field, value) => {
+    setToolOptions({
+      ...toolOptions,
+      [field]: value === "" ? 0 : parseFloat(value) || 0,
+    });
+  };
 
   // 적용하기 버튼 클릭 핸들러
   const handleApply = () => {
-    handleSubmit({ amulet, level, epic, toolOptions }); // 인자로 객체를 전달
+    handleSubmit({ amulet, level, epic, toolOptions });
+  };
+
+  // 프리셋 저장 핸들러
+  const handleSavePreset = (name) => {
+    if (!name) {
+      alert("프리셋 이름을 입력하세요!");
+      return;
+    }
+
+    const existing = JSON.parse(localStorage.getItem("toolPresets")) || [];
+    const newPreset = {
+      id: Date.now(),
+      toolType: selectedTool, // ✅ 현재 선택된 도구 종류
+      name,
+      options: toolOptions,
+    };
+
+    const updated = [...existing, newPreset];
+    localStorage.setItem("toolPresets", JSON.stringify(updated));
+
+    // ✅ 저장 직후 상위 컴포넌트 state 갱신
+    if (onPresetSaved) {
+      onPresetSaved(updated.filter((p) => p.toolType === selectedTool));
+    }
+
+    setPresetName(""); // 입력칸 초기화
   };
 
   return (
     <div className="combined-input">
       {/* 도구 옵션 입력 섹션 */}
       <div className="tool-table">
-        <div className="tool-table-header">도구 옵션 입력</div>
+        <div className="tool-table-header">
+          <span>도구 옵션 입력</span>
+          <div className="preset-input">
+            <input
+              type="text"
+              placeholder="프리셋 이름"
+              value={presetName}
+              onChange={(e) => setPresetName(e.target.value.slice(0, 10))} // ✅ 최대 8자
+              maxLength={8} // ✅ 브라우저 입력 제한
+              className="preset-input-field"
+            />
+            <button
+              className="preset-save-btn"
+              onClick={() => handleSavePreset(presetName)}
+            >
+              저장
+            </button>
+          </div>
+        </div>
+
         {Object.keys(toolOptions).map((field) => (
           <div key={field} className="tool-table-row">
             <div className="tool-table-cell">{field.replace(/_/g, " ")}</div>
@@ -40,7 +91,7 @@ const handleOptionChange = (field, value) => {
                 value={toolOptions[field]}
                 onChange={(e) => handleOptionChange(field, e.target.value)}
                 className="input-field"
-                placeholder="0" // 기본 안내문 추가
+                placeholder="0"
               />
               &nbsp;%
             </div>
@@ -71,9 +122,9 @@ const handleOptionChange = (field, value) => {
             type="number"
             min="30"
             max="70"
-            value={level || ''} // level이 0이면 빈 문자열로 표시
+            value={level || ""}
             onChange={(e) => setLevel(Number(e.target.value))}
-            placeholder="0" // 기본 안내문 추가
+            placeholder="0"
           />
         </div>
         <div className="input-group">
@@ -83,9 +134,9 @@ const handleOptionChange = (field, value) => {
             type="number"
             min="0"
             max="100"
-            value={epic === 0 ? '' : epic}
+            value={epic === 0 ? "" : epic}
             onChange={(e) => setEpic(Number(e.target.value))}
-            placeholder="0" // 기본 안내문 추가
+            placeholder="0"
           />
         </div>
         <button className="submit-button" onClick={handleApply}>
@@ -106,6 +157,9 @@ CombinedInput.propTypes = {
   epic: PropTypes.number.isRequired,
   setEpic: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  selectedTool: PropTypes.string.isRequired, // ex) "lumbering"
+  toolName: PropTypes.string.isRequired,    // ex) "벌목"
+  onPresetSaved: PropTypes.func,            // ✅ 새 프리셋 저장 시 호출되는 콜백
 };
 
 export default CombinedInput;

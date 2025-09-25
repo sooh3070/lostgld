@@ -8,7 +8,7 @@
 }
 
 .tool-selector label {
-  font-size: 18px;
+  font-size: 1em;
   font-weight: bold;
   font-family: var(--font-sub);
   color: var(--text);

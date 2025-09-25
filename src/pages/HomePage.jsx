@@ -69,6 +69,7 @@ function HomePage() {
         <div className="home-subtitle-right">
           <p className="home-subtitle3"><strong>업데이트</strong></p>
           <p className="home-subtitle2">
+            <br />2025.09.25 생활도구 계산기 | 도구 프리셋 추가
             <br />2025.07.05 융화 재료 제작 | 일부 수정
             <br />2025.05.01 골두꺼비 기댓 값 계산기 추가
             <br />2025.04.30 다크모드 추가, UI 수정

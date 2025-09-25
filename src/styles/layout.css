@@ -2,13 +2,21 @@
 .page-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 30px;
   margin-top: 120px;
   background-color: var(--bg);
-  border-radius: 20px;
+  border-radius: 10px;
   font-family: var(--font-main);
   color: var(--text);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.4em;
 }
 
 /* 반응형 */
@@ -23,7 +31,7 @@
 
 /* 공통 제목 스타일 */
 .page-title {
-  font-size: 30px;
+  font-size: 1.6em;
   font-weight: 700;
   font-family: var(--font-main);
   color: var(--text);
@@ -35,7 +43,7 @@
 
 .page-subtitle {
   font-family: var(--font-sub);
-  font-size: 14px;
+  font-size: 0.8em;
   color: #777;
   margin-top: 5px;
   margin-bottom: 20px;
