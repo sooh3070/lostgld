@@ -100,6 +100,30 @@ export default function PrivacyPolicy() {
         If you have any questions, please contact us at{" "}
         <a href="mailto:sooh3070@gmail.com">sooh3070@gmail.com</a>.
       </p>
+
+      {/* ✅ 추가된 계정 삭제 절차 */}
+      <h2>10. Account Deletion</h2>
+      <p>
+        You may request deletion of your account and related data at any time
+        by either:
+      </p>
+      <ul>
+        <li>
+          Using the <strong>"Delete Account"</strong> option within the Moim
+          app, available in the profile/settings page.
+        </li>
+        <li>
+          Sending a request via email to{" "}
+          <a href="mailto:sooh3070@gmail.com">sooh3070@gmail.com</a>.
+        </li>
+      </ul>
+      <p>
+        Once we receive your request, your account and associated personal data
+        will be deleted within <strong>30 days</strong>, except for data we are
+        legally required to retain (such as transaction records). After this
+        period, all personal information will be permanently removed and cannot
+        be recovered.
+      </p>
     </div>
   );
 }
