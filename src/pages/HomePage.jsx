@@ -36,20 +36,32 @@ function HomePage() {
 
       {/* 카드 레이아웃 */}
       <div className="home-card-container">
-        {[ 
+        {[
           { title: '벌목 도구 계산기', link: '/life-tool/lumbering' },
           { title: '아비도스/가토/카게', link: '/pve-data' },
           { title: '융화 재료 제작기', link: '/craft' },
           { title: '생활 효율 계산기', link: '/life-data' },
           { title: '생활 가루 계산기', link: '/conversion' },
           { title: '카멘 익스 계산기', link: '/toadbox' },
-          { title: '', link: '/' },
+          { title: '밸런스 티어 beta', link: 'https://tier.lostgld.com', external: true },
           { title: '쿠키 관리', link: '/storage' },
-        ].map((card, index) => (
-         <Link to={card.link} className="home-card" key={index}>
-          <div className="card-title">{card.title}</div>
-         </Link>
-        ))}
+        ].map((card, index) =>
+          card.external ? (
+            <a
+              href={card.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="home-card"
+              key={index}
+            >
+              <div className="card-title">{card.title}</div>
+            </a>
+          ) : (
+            <Link to={card.link} className="home-card" key={index}>
+              <div className="card-title">{card.title}</div>
+            </Link>
+          )
+        )}
       </div>
 
       {/* 좌우 안내 박스 */}
@@ -69,6 +81,7 @@ function HomePage() {
         <div className="home-subtitle-right">
           <p className="home-subtitle3"><strong>업데이트</strong></p>
           <p className="home-subtitle2">
+            <br />2025.10.16 밸런스 티어 추가
             <br />2025.09.25 생활도구 계산기 | 도구 프리셋 추가
             <br />2025.07.05 융화 재료 제작 | 일부 수정
             <br />2025.05.01 골두꺼비 기댓 값 계산기 추가
