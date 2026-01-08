@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // 이미 상단에 있음
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import '../styles/HomePage.css';
 import AdComponent from '../components/AdComponent';
@@ -34,6 +34,25 @@ function HomePage() {
         adType="horizontal"
       />
 
+      {/* 🔥 [추가됨] AEID 홍보 배너 영역 */}
+      <div className="promo-banner-container">
+        <a
+          href="https://aeid.lostgld.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="promo-banner-link"
+        >
+          <div className="promo-content">
+            <span className="promo-badge">NEW</span>
+            <span className="promo-text">
+              <strong>아이온2 실시간 제작 계산기</strong>
+              <span className="promo-sub"> &nbsp;| 아이드 바로가기 &rarr;</span>
+            </span>
+          </div>
+        </a>
+      </div>
+      {/* ---------------------------------- */}
+
       {/* 카드 레이아웃 */}
       <div className="home-card-container">
         {[
@@ -43,7 +62,7 @@ function HomePage() {
           { title: '생활 효율 계산기', link: '/life-data' },
           { title: '생활 가루 계산기', link: '/conversion' },
           { title: '카멘 익스 계산기', link: '/toadbox' },
-          { title: '밸런스 티어 beta', link: 'https://tier.lostgld.com', external: true },
+          { title: '', link: 'https://tier.lostgld.com', external: true },
           { title: '쿠키 관리', link: '/storage' },
         ].map((card, index) =>
           card.external ? (
@@ -90,7 +109,7 @@ function HomePage() {
             <br />2025.02.10 생활 가루 계산기 | 복구
             <br />2025.02.08 pve 효율 계산기 | 데이터 정확도 개선
             <br />2025.02.07 생활도구 계산기 | 정확도 개선 (gld2)
-            <br />2025.02.07 생활도구 계산기 | 그래프 기능 추가 
+            <br />2025.02.07 생활도구 계산기 | 그래프 기능 추가
             <br />2025.01.26 pve 효율 계산기 | 1700컨텐츠 추가
             <br />2025.01.15 생활 도구 계산기 | "보물주머니" 옵션 조정
           </p>

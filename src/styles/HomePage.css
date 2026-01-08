@@ -119,6 +119,92 @@
   color: var(--header-link);
 }
 
+/* =========================================
+   추가된 배너 스타일 (AEID 홍보)
+   ========================================= */
+.promo-banner-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  /* 광고와의 간격 */
+  padding: 0 20px;
+  /* 좌우 여백 */
+  box-sizing: border-box;
+}
+
+.promo-banner-link {
+  width: 100%;
+  max-width: 860px;
+  /* 카드 레이아웃(4열) 너비와 비슷하게 맞춤 */
+  height: 64px;
+  /* 아이온 느낌의 딥 블루/퍼플 그라데이션 */
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6a11cb 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  /* 배경이 어두우므로 글자는 항상 흰색 */
+  font-family: var(--font-main);
+  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.promo-banner-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
+}
+
+.promo-badge {
+  background-color: #ff4757;
+  /* 강조 포인트 컬러 (레드) */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.promo-text {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+}
+
+.promo-sub {
+  font-size: 14px;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
+/* =========================================
+   기존 모바일 반응형 수정 (@media 안에 내용 추가)
+   ========================================= */
+@media (max-width: 768px) {
+  /* ... (기존 내용들) ... */
+
+  /* [추가] 배너 모바일 스타일 */
+  .promo-banner-link {
+    width: 90%;
+    /* 카드 너비와 동일하게 맞춤 */
+    height: 56px;
+    flex-direction: row;
+    /* 가로 정렬 유지 */
+  }
+
+  .promo-text {
+    font-size: 15px;
+    /* 폰트 크기 약간 축소 */
+  }
+
+  .promo-sub {
+    display: none;
+    /* 모바일에서는 "바로가기" 텍스트 숨김 (깔끔하게) */
+  }
+}
+
 /* 모바일 반응형 */
 @media (max-width: 768px) {
   .home-title {
