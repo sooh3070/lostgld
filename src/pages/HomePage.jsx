@@ -34,24 +34,6 @@ function HomePage() {
         adType="horizontal"
       />
 
-      {/* 🔥 [추가됨] AEID 홍보 배너 영역 */}
-      <div className="promo-banner-container">
-        <a
-          href="https://aeid.lostgld.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="promo-banner-link"
-        >
-          <div className="promo-content">
-            <span className="promo-badge">NEW</span>
-            <span className="promo-text">
-              <strong>아이온2 실시간 제작 계산기</strong>
-              <span className="promo-sub"> &nbsp;| 아이드 바로가기 &rarr;</span>
-            </span>
-          </div>
-        </a>
-      </div>
-      {/* ---------------------------------- */}
 
       {/* 카드 레이아웃 */}
       <div className="home-card-container">
