@@ -34,7 +34,6 @@ function Header() {
           <div className="header-right">
             <nav className="header-nav">
               <Link to="/life-data" className="header-link">생활 효율</Link>
-              <Link to="/pve-data" className="header-link">pve 효율</Link>
               <Link to="/life-tool/lumbering" className="header-link">생활 도구</Link>
               <Link to="/craft" className="header-link">융화 재료</Link>
             </nav>

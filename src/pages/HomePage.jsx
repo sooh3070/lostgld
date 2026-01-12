@@ -39,11 +39,11 @@ function HomePage() {
       <div className="home-card-container">
         {[
           { title: '벌목 도구 계산기', link: '/life-tool/lumbering' },
-          { title: '아비도스/가토/카게', link: '/pve-data' },
+          { title: '생활 가루 계산기', link: '/conversion' },
           { title: '융화 재료 제작기', link: '/craft' },
           { title: '생활 효율 계산기', link: '/life-data' },
-          { title: '생활 가루 계산기', link: '/conversion' },
-          { title: '카멘 익스 계산기', link: '/toadbox' },
+          { title: '', link: '' },  //{ title: '아비도스/가토/카게', link: '/pve-data' },  
+          { title: '', link: '' }, //{ title: '카멘 익스 계산기', link: '/toadbox' },
           { title: '', link: 'https://tier.lostgld.com', external: true },
           { title: '쿠키 관리', link: '/storage' },
         ].map((card, index) =>
