@@ -69,7 +69,8 @@
     font-family: var(--font-alt);
     font-size: 1.2em;
     font-weight: 800;
-    color: #2e8b57; /* ✅ 필요시 변수화 */
+    color: #2e8b57;
+    /* ✅ 필요시 변수화 */
     margin: 0 0 10px 0;
 }
 
@@ -100,7 +101,8 @@
 
 .subtext {
     font-size: 0.6em;
-    color: red; /* ❗ 강조용. 필요시 변수화 */
+    color: red;
+    /* ❗ 강조용. 필요시 변수화 */
 }
 
 .info-icon {
@@ -136,87 +138,90 @@
 
 /* ================= 프리셋 카드 리스트 ================= */
 .preset-list {
-  margin-top: 15px;
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;   /* ✅ 가로 스크롤 */
-  padding-bottom: 6px;
+    margin-top: 15px;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    /* ✅ 가로 스크롤 */
+    padding-bottom: 6px;
 }
 
 .preset-card {
-  flex: 0 0 auto;     /* ✅ 카드 크기 고정, 옆으로 나열 */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 180px;
-  max-width: 200px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid var(--table-border);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: background 0.2s ease;
+    flex: 0 0 auto;
+    /* ✅ 카드 크기 고정, 옆으로 나열 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 180px;
+    max-width: 200px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--bg);
+    border: 1px solid var(--table-border);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: background 0.2s ease;
 }
 
 .preset-card:hover {
-  background: var(--subtle);
+    background: var(--subtle);
 }
 
 .preset-name {
-  flex: 1;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  white-space: nowrap;       /* ✅ 한 줄 */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-right: 10px;
-  cursor: pointer;
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    /* ✅ 한 줄 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .preset-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 .preset-btn {
-  padding: 4px 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.2s ease;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .preset-load {
-  background: var(--primary);
-  color: #fff;
+    background: var(--primary);
+    color: #fff;
 }
 
 .preset-load:hover {
-  background: var(--accent);
+    background: var(--accent);
 }
 
 .preset-delete {
-  padding: 4px 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  color: #fff;
-  cursor: pointer;
-  background: var(--primary);
-  transition: background 0.2s ease;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #fff;
+    cursor: pointer;
+    background: var(--primary);
+    transition: background 0.2s ease;
 }
 
 .preset-delete:hover {
-  background: var(--accent);
+    background: var(--accent);
 }
 
 .no-presets {
-  margin-top: 8px;
-  font-size: 14px;
-  color: var(--table-subtext);
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--table-subtext);
 }
 
 
@@ -258,9 +263,10 @@
         display: none;
     }
 
-        /* ✅ 프리셋 카드 반응형 */
+    /* ✅ 프리셋 카드 반응형 */
     .preset-card {
-        min-width: 100px;   /* 조금 더 작게 */
+        min-width: 100px;
+        /* 조금 더 작게 */
         max-width: 120px;
         padding: 10px 12px;
     }

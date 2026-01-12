@@ -39,9 +39,9 @@ function HomePage() {
       <div className="home-card-container">
         {[
           { title: '벌목 도구 계산기', link: '/life-tool/lumbering' },
-          { title: '생활 가루 계산기', link: '/conversion' },
-          { title: '융화 재료 제작기', link: '/craft' },
           { title: '생활 효율 계산기', link: '/life-data' },
+          { title: '융화 재료 제작기', link: '/craft' },
+          { title: '생활 가루 계산기', link: '/conversion' },
           { title: '', link: '' },  //{ title: '아비도스/가토/카게', link: '/pve-data' },  
           { title: '', link: '' }, //{ title: '카멘 익스 계산기', link: '/toadbox' },
           { title: '', link: 'https://tier.lostgld.com', external: true },
@@ -82,6 +82,8 @@ function HomePage() {
         <div className="home-subtitle-right">
           <p className="home-subtitle3"><strong>업데이트</strong></p>
           <p className="home-subtitle2">
+            <br />2026.01.26 융화 재료 제작 | 상급 아비도스 융화재료 추가
+            <br />2026.01.26 생활가루 계산기 | 상급 아비도스 융화재료 추가
             <br />2025.10.16 밸런스 티어 추가
             <br />2025.09.25 생활도구 계산기 | 도구 프리셋 추가
             <br />2025.07.05 융화 재료 제작 | 일부 수정

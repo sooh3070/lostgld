@@ -50,10 +50,12 @@
   .conversion-page {
     font-size: 14px;
   }
+
   .activity-selection select {
     width: 100%;
     font-size: 14px;
   }
+
   .material-input input {
     width: 80px;
   }
@@ -187,6 +189,66 @@
   margin-left: 5px;
   vertical-align: middle;
   border-radius: 10%;
+}
+
+/* --- 기존 CSS 맨 아래에 추가하세요 --- */
+
+/* 카드 선택 그리드 레이아웃 */
+.selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  /* 작게 자동 정렬 */
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* 카드 디자인 */
+.selection-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text);
+  opacity: 0.7;
+  text-align: center;
+  font-size: 14px;
+}
+
+.selection-card:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+  border-color: var(--primary);
+}
+
+/* 선택된 상태 */
+.selection-card.selected {
+  border: 2px solid var(--primary);
+  background-color: var(--subtle);
+  opacity: 1;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.selection-card-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+  object-fit: contain;
+}
+
+/* 섹션 제목 (생활 활동, 제작 목표) */
+h3.section-title {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: var(--text);
+  padding-bottom: 5px;
 }
 
 /* 모바일 반응형 */

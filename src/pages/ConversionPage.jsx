@@ -5,6 +5,8 @@ import '../styles/ConversionPage.css';
 
 function ConversionPage() {
   const [selectedActivity, setSelectedActivity] = useState('');
+  // 1. 기본값을 'superior_abydos'(상급)로 설정
+  const [targetItem, setTargetItem] = useState('superior_abydos');
   const [activityData, setActivityData] = useState([]);
   const [materials, setMaterials] = useState({});
   const [loading, setLoading] = useState(true);
@@ -14,44 +16,16 @@ function ConversionPage() {
 
   const powderIcon = 'https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_10_40.png';
   const fusionIcon = 'https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_12_86.png';
+  // ✅ 보내주신 상급 아이콘 URL 적용
+  const superiorIcon = 'https://cdn-lostark.game.onstove.com/efui_iconatlas/use/use_13_252.png';
 
   const activityMapping = {
-    '4T 식물채집(만생기 기준)': {
-      normal: '들꽃',
-      highGrade: '수줍은 들꽃',
-      abyss: '아비도스 들꽃',
-      rare: null, 
-    },
-    '4T 벌목(만생기 기준)': {
-      normal: '목재',
-      highGrade: '부드러운 목재',
-      abyss: '아비도스 목재',
-      rare: '튼튼한 목재',
-    },
-    '4T 채광(만생기 기준)': {
-      normal: '철광석',
-      highGrade: '묵직한 철광석',
-      abyss: '아비도스 철광석',
-      rare: '단단한 철광석',
-    },
-    '4T 수렵(만생기 기준)': {
-      normal: '두툼한 생고기',
-      highGrade: '다듬은 생고기',
-      abyss: '아비도스 두툼한 생고기',
-      rare: null, 
-    },
-    '4T 낚시(만생기 기준)': {
-      normal: '생선',
-      highGrade: '붉은 살 생선',
-      abyss: '아비도스 태양 잉어',
-      rare: null, 
-    },
-    '4T 고고학(만생기 기준)': {
-      normal: '고대 유물',
-      highGrade: '희귀한 유물',
-      abyss: '아비도스 유물',
-      rare: null, 
-    },
+    '4T 식물채집(만생기 기준)': { normal: '들꽃', highGrade: '수줍은 들꽃', abyss: '아비도스 들꽃', rare: null },
+    '4T 벌목(만생기 기준)': { normal: '목재', highGrade: '부드러운 목재', abyss: '아비도스 목재', rare: '튼튼한 목재' },
+    '4T 채광(만생기 기준)': { normal: '철광석', highGrade: '묵직한 철광석', abyss: '아비도스 철광석', rare: '단단한 철광석' },
+    '4T 수렵(만생기 기준)': { normal: '두툼한 생고기', highGrade: '다듬은 생고기', abyss: '아비도스 두툼한 생고기', rare: null },
+    '4T 낚시(만생기 기준)': { normal: '생선', highGrade: '붉은 살 생선', abyss: '아비도스 태양 잉어', rare: null },
+    '4T 고고학(만생기 기준)': { normal: '고대 유물', highGrade: '희귀한 유물', abyss: '아비도스 유물', rare: null },
   };
 
   useEffect(() => {
@@ -68,11 +42,11 @@ function ConversionPage() {
     loadActivityData();
   }, []);
 
-  const handleActivityChange = (e) => {
-    const activity = e.target.value;
-    setSelectedActivity(activity);
+  // 2. 클릭 방식으로 변경된 핸들러
+  const handleActivityClick = (activityName) => {
+    setSelectedActivity(activityName);
 
-    const selectedData = activityData.find((data) => data.name.includes(activity)) || {};
+    const selectedData = activityData.find((data) => data.name.includes(activityName)) || {};
     const initialMaterials = {};
     selectedData.items?.forEach((item) => {
       initialMaterials[item.name] = {
@@ -84,6 +58,7 @@ function ConversionPage() {
     });
 
     setMaterials(initialMaterials);
+    setFusionResult(null); // 활동 변경 시 결과 초기화
   };
 
   const handleMaterialChange = (e, materialName) => {
@@ -100,6 +75,7 @@ function ConversionPage() {
       highGrade: materials[activityMapping[selectedActivity]?.highGrade]?.count || 0,
       abyss: materials[activityMapping[selectedActivity]?.abyss]?.count || 0,
       rare: materials[activityMapping[selectedActivity]?.rare]?.count || 0,
+      targetType: targetItem // 3. 선택된 제작 목표 전달
     });
     setFusionResult(result);
   };
@@ -109,44 +85,61 @@ function ConversionPage() {
   return (
     <div className="conversion-page">
       <h1 className="conversion-title">생활 가루 계산기</h1>
-      <h5>※ 교환가격: 아비도스 재료로 교환시 가격
-      </h5>
 
-      <div className="activity-selection">
-        <label>생활 활동: </label>
-        <select onChange={handleActivityChange} value={selectedActivity}>
-            <option value="">활동을 선택하세요</option>
-            {Object.keys(activityMapping).map((activityName) => {
-            // 간단한 표시 이름 정의
-            const displayName = {
-                '4T 채광(만생기 기준)': '채광',
-                '4T 벌목(만생기 기준)': '벌목',
-                '4T 식물채집(만생기 기준)': '식물 채집',
-                '4T 수렵(만생기 기준)': '수렵',
-                '4T 낚시(만생기 기준)': '낚시',
-                '4T 고고학(만생기 기준)': '고고학',
-            }[activityName] || activityName; // 매핑에 없으면 원래 이름 사용
+      {/* 4. 생활 활동 선택 (카드형 UI) */}
+      <h3 className="section-title">생활 활동</h3>
+      <div className="selection-grid">
+        {Object.keys(activityMapping).map((activityName) => {
+          const displayName = {
+            '4T 채광(만생기 기준)': '채광',
+            '4T 벌목(만생기 기준)': '벌목',
+            '4T 식물채집(만생기 기준)': '식물 채집',
+            '4T 수렵(만생기 기준)': '수렵',
+            '4T 낚시(만생기 기준)': '낚시',
+            '4T 고고학(만생기 기준)': '고고학',
+          }[activityName] || activityName;
 
-            return (
-                <option key={activityName} value={activityName}>
-                {displayName}
-                </option>
-            );
-            })}
-        </select>
+          return (
+            <div
+              key={activityName}
+              className={`selection-card ${selectedActivity === activityName ? 'selected' : ''}`}
+              onClick={() => handleActivityClick(activityName)}
+            >
+              <span>{displayName}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 5. 제작 목표 선택 (카드형 UI) */}
+      <h3 className="section-title">제작 목표</h3>
+      <div className="selection-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
+        <div
+          className={`selection-card ${targetItem === 'superior_abydos' ? 'selected' : ''}`}
+          onClick={() => setTargetItem('superior_abydos')}
+        >
+          <img src={superiorIcon} alt="상급" className="selection-card-icon" />
+          <span>상급 아비도스</span>
         </div>
+        <div
+          className={`selection-card ${targetItem === 'abydos' ? 'selected' : ''}`}
+          onClick={() => setTargetItem('abydos')}
+        >
+          <img src={fusionIcon} alt="일반" className="selection-card-icon" />
+          <span>아비도스</span>
+        </div>
+      </div>
+
 
       {selectedActivity && (
         <div className="material-input">
           <h3>재료 입력</h3>
           {materials &&
             Object.entries(materials).map(([key, { count, price, icon, bundleCount }]) => {
-              // 현재 선택된 활동에서 abyss 등급 재료의 이름과 시세 가져오기
               const abyssMaterialName = activityMapping[selectedActivity]?.abyss || "";
-              const abyssPrice = abyssMaterialName ? (materials[abyssMaterialName]?.price || 0) : 0; // Abyss 재료 가격 가져오기
+              const abyssPrice = abyssMaterialName ? (materials[abyssMaterialName]?.price || 0) : 0;
 
-              // 환산 가격 계산 (normal: abyssPrice / 12.5, highGrade: abyssPrice / 6.25)
-              let exchangePrice = '-'; // 기본값
+              let exchangePrice = '-';
               if (key === activityMapping[selectedActivity]?.normal) {
                 exchangePrice = abyssPrice > 0 ? (abyssPrice / 12.5).toFixed(2) : '-';
               } else if (key === activityMapping[selectedActivity]?.highGrade) {
@@ -165,6 +158,7 @@ function ConversionPage() {
                     />
                   </label>
                   <span>가격: {Math.floor(((count / bundleCount) * price || 0).toFixed(2))}G&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                  {/* 교환 가격 표시 로직 유지 */}
                   {exchangePrice !== '-' && <span> 교환가격: {Math.floor(((count / bundleCount) * exchangePrice || 0).toFixed(2))}G</span>}
                 </div>
               );
@@ -183,34 +177,39 @@ function ConversionPage() {
           <div className="conversion-result">
             <h3>최종 결과</h3>
             <p>
-              <img src={fusionIcon} alt="fusion" className="fusion-icon" />
+              {/* ✅ 결과창 아이콘도 선택된 목표에 따라 변경 */}
+              <img
+                src={targetItem === 'superior_abydos' ? superiorIcon : fusionIcon}
+                alt="fusion"
+                className="fusion-icon"
+              />
               (x10) 융화 재료 제작 횟수: {fusionResult.fusionCount}
             </p>
             <div className="remaining-materials">
               <h4>남은 재료</h4>
               {Object.entries(fusionResult.remaining)
-                .filter(([key, value]) => value !== 0) // 0이 아닌 값만 필터링
+                .filter(([key, value]) => value !== 0)
                 .map(([key, value]) => (
-                    <div key={key}>
+                  <div key={key}>
                     <img
-                        src={
+                      src={
                         key === 'normal'
-                            ? materials[activityMapping[selectedActivity]?.normal]?.icon
-                            : key === 'highGrade'
+                          ? materials[activityMapping[selectedActivity]?.normal]?.icon
+                          : key === 'highGrade'
                             ? materials[activityMapping[selectedActivity]?.highGrade]?.icon
                             : key === 'abyss'
-                            ? materials[activityMapping[selectedActivity]?.abyss]?.icon
-                            : key === 'rare'
-                            ? materials[activityMapping[selectedActivity]?.rare]?.icon
-                            : powderIcon
-                        }
-                        alt={key}
-                        className="material-icon"
+                              ? materials[activityMapping[selectedActivity]?.abyss]?.icon
+                              : key === 'rare'
+                                ? materials[activityMapping[selectedActivity]?.rare]?.icon
+                                : powderIcon
+                      }
+                      alt={key}
+                      className="material-icon"
                     />
                     <span>
-                        : {value}개
+                      : {value}개
                     </span>
-                    </div>
+                  </div>
                 ))}
             </div>
           </div>
@@ -222,24 +221,24 @@ function ConversionPage() {
               .map((summary, index) => (
                 <div key={index} className="conversion-summary">
 
-                    {summary.totalRareUsed !== 0 && (
+                  {summary.totalRareUsed !== 0 && (
                     <div className="conversion-step">
-                        <img
+                      <img
                         src={materials[activityMapping[selectedActivity]?.rare]?.icon || ''}
                         alt="rare"
                         className="material-icon"
-                        />
-                        <span>{summary.totalRareUsed}</span>
-                        <span>→</span>
-                        <img
+                      />
+                      <span>{summary.totalRareUsed}</span>
+                      <span>→</span>
+                      <img
                         src={materials[activityMapping[selectedActivity]?.normal]?.icon || ''}
                         alt="normal"
                         className="material-icon"
-                        />
-                        <span>{summary.convertedNormal}</span>
-                        <span className="strong">&nbsp; {summary.totalRareUsed / 5}번 교환</span>
+                      />
+                      <span>{summary.convertedNormal}</span>
+                      <span className="strong">&nbsp; {summary.totalRareUsed / 5}번 교환</span>
                     </div>
-                    )}
+                  )}
                   <div className="conversion-step">
                     <img
                       src={materials[activityMapping[selectedActivity]?.normal]?.icon || ''}
@@ -250,7 +249,7 @@ function ConversionPage() {
                     <span>→</span>
                     <img src={powderIcon} alt="Powder" className="material-icon" />
                     <span>{summary.totalNormalUsed * 0.8}</span>
-                    <span className='strong'> &nbsp; {summary.totalNormalUsed/100}번 교환 </span>
+                    <span className='strong'> &nbsp; {summary.totalNormalUsed / 100}번 교환 </span>
                   </div>
                   <div className="conversion-step">
                     <img
@@ -262,7 +261,7 @@ function ConversionPage() {
                     <span>→</span>
                     <img src={powderIcon} alt="Powder" className="material-icon" />
                     <span>{summary.totalHighGradeUsed * 1.6}</span>
-                    <span className='strong'> &nbsp; {summary.totalHighGradeUsed/50}번 교환 </span>
+                    <span className='strong'> &nbsp; {summary.totalHighGradeUsed / 50}번 교환 </span>
                   </div>
                   <div className="conversion-step">
                     <img src={powderIcon} alt="Powder" className="material-icon" />
@@ -274,7 +273,7 @@ function ConversionPage() {
                       className="material-icon"
                     />
                     <span>{summary.totalAbyssGained}</span>
-                    <span className='strong'> &nbsp; {summary.totalAbyssGained/10}번 교환 </span>
+                    <span className='strong'> &nbsp; {summary.totalAbyssGained / 10}번 교환 </span>
                   </div>
                 </div>
               ))}

@@ -36,6 +36,7 @@ function Header() {
               <Link to="/life-data" className="header-link">생활 효율</Link>
               <Link to="/life-tool/lumbering" className="header-link">생활 도구</Link>
               <Link to="/craft" className="header-link">융화 재료</Link>
+              <Link to="/conversion" className="header-link">생활 가루</Link>
             </nav>
 
             <button className="theme-toggle-button" onClick={toggleTheme}>
@@ -51,7 +52,6 @@ function Header() {
           <img src="/clock_4.png" alt="홈으로" className="mobile-logo" />
         </Link>
         <Link to="/life-data" className="mobile-nav-item">생활</Link>
-        <Link to="/pve-data" className="mobile-nav-item">PVE</Link>
         <Link to="/life-tool/lumbering" className="mobile-nav-item">도구</Link>
         <Link to="/craft" className="mobile-nav-item">재료</Link>
         <button className="mobile-nav-item" onClick={toggleTheme}>
