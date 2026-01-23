@@ -1,3 +1,4 @@
+// 📂 Path: src/pages/ConversionPage.js
 import React, { useEffect, useState } from 'react';
 import { useFusionCalculator } from '../hooks/useFusionCalculator';
 import { fetchLifeEfficiencyData } from '../services/LostArkApi';
@@ -31,8 +32,14 @@ function ConversionPage() {
   useEffect(() => {
     const loadActivityData = async () => {
       try {
-        const data = await fetchLifeEfficiencyData();
-        setActivityData(data || []);
+        // response는 이제 { data: [...], server_crystal_price: ... } 형태의 객체입니다.
+        const response = await fetchLifeEfficiencyData();
+
+        // 🔻 [수정됨] 객체에서 data 배열만 꺼내서 state에 저장해야 합니다.
+        // 만약 response.data가 없으면 빈 배열 []
+        const dataList = response.data || [];
+
+        setActivityData(dataList);
       } catch (error) {
         console.error('생활 활동 데이터를 가져오는 중 오류 발생:', error);
       } finally {
@@ -46,6 +53,7 @@ function ConversionPage() {
   const handleActivityClick = (activityName) => {
     setSelectedActivity(activityName);
 
+    // activityData가 배열이어야 .find()가 작동합니다.
     const selectedData = activityData.find((data) => data.name.includes(activityName)) || {};
     const initialMaterials = {};
     selectedData.items?.forEach((item) => {
