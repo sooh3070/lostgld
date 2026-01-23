@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 백엔드 서버 URL 설정 (개발/프로덕션 환경에 맞게 변경)
-const BACKEND_API_URL = 'https://api.lostgld.com'; // 개발: http://localhost:8000, 프로덕션: https://api.lostgld.com
+const BACKEND_API_URL = 'https://api.lostgld.com'; // 개발: http://localhost:8081, 프로덕션: https://api.lostgld.com
 
 /**
  * /data-pve 엔드포인트에서 PVE 효율 데이터 가져오기
@@ -26,10 +26,13 @@ export const fetchLifeEfficiencyData = async () => {
   try {
     const response = await axios.get(`${BACKEND_API_URL}/data-life`);
     console.log('Fetched life efficiency data from backend:', response.data);
-    return response.data?.data || [];
+
+    // ✅ 전체 객체({ data: [...], server_crystal_price: ... })를 그대로 반환
+    return response.data;
   } catch (error) {
     console.error('생활 효율 데이터를 가져오는 중 오류 발생:', error);
-    return [];
+    // 에러 발생 시에도 구조를 맞춰서 반환하는 것이 안전함
+    return { data: [], server_crystal_price: 0 };
   }
 };
 

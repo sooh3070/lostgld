@@ -19,6 +19,59 @@ h2 {
   font-size: 1.4em;
 }
 
+/* 크리스탈 가격 입력 섹션 스타일 */
+
+
+.crystal-label {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-sub);
+  color: var(--text);
+  /* craft-input-label 스타일 참고하여 정렬 */
+  display: flex;
+  align-items: center;
+}
+
+.crystal-input {
+  font-size: 16px;
+  font-weight: 500;
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid var(--border, #ccc);
+  border-radius: 5px;
+  background-color: var(--subtle, #f9f9f9);
+  color: var(--text);
+  font-family: var(--font-main);
+  text-align: center;
+  margin: 0px;
+}
+
+.crystal-input:focus {
+  outline: none;
+  border-color: var(--primary, #4e66cf);
+}
+
+/* 숫자 입력 스피너 제거 (크롬/사파리) */
+.crystal-input::-webkit-inner-spin-button,
+.crystal-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 숫자 입력 스피너 제거 (파이어폭스) */
+.crystal-input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.crystal-highlight {
+  color: #ffc107;
+  /* 골드 색상 강조 */
+  font-weight: 800;
+}
+
+
 /* 반응형 */
 @media (max-width: 768px) {
   .page-container {
@@ -26,6 +79,16 @@ h2 {
     margin-top: 60px;
     padding: 20px;
     border-radius: 0;
+  }
+
+  /* 모바일에서 크리스탈 섹션 조정 */
+  .crystal-input-section {
+    padding: 15px;
+    margin: 15px 0;
+  }
+
+  .crystal-label {
+    font-size: 1em;
   }
 }
 
@@ -48,6 +111,7 @@ h2 {
   margin-top: 5px;
   margin-bottom: 20px;
   text-align: left;
+  line-height: 1.4;
 }
 
 /* 공통 인풋 필드 */

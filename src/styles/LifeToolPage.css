@@ -18,9 +18,12 @@
   padding: 8px;
   font-size: 16px;
   font-family: var(--font-sub);
-  border: 1px solid var(--table-border);     /* ✅ 테이블 테두리 색 */
-  background-color: var(--table-bg);         /* ✅ 테이블 배경 색 */
-  color: var(--table-text);                  /* ✅ 테이블 글자 색 */
+  border: 1px solid var(--table-border);
+  /* ✅ 테이블 테두리 색 */
+  background-color: var(--table-bg);
+  /* ✅ 테이블 배경 색 */
+  color: var(--table-text);
+  /* ✅ 테이블 글자 색 */
   border-radius: 5px;
 }
 
