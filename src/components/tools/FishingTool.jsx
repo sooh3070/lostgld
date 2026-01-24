@@ -62,13 +62,17 @@ const FishingTool = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const data = await fetchLifeEfficiencyData();
-      const filteredData = data.find(
-        (activity) => activity.name === "4T 낚시(만생기 기준)"
-      );
+      try {
+        const response = await fetchLifeEfficiencyData();
+        // 낚시 데이터도 마찬가지로 객체 내 data 배열을 꺼내야 합니다.
+        const dataList = response.data || [];
 
-      const updatedData = filteredData
-        ? {
+        const filteredData = dataList.find(
+          (activity) => activity.name === "4T 낚시(만생기 기준)"
+        );
+
+        const updatedData = filteredData
+          ? {
             ...filteredData,
             items: filteredData.items.map((item) => ({
               ...item,
@@ -77,10 +81,14 @@ const FishingTool = () => {
             })),
             total_gold: 0,
           }
-        : null;
+          : null;
 
-      setLumberingData(updatedData);
-      setIsLoading(false);
+        setLumberingData(updatedData);
+      } catch (error) {
+        console.error("데이터 로드 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchData();
@@ -147,7 +155,7 @@ const FishingTool = () => {
       price: item.price,
       totalPrice: Math.floor(
         (Math.floor(toolChartMappedData[item.name] || 0) * (item.price || 0)) /
-          100
+        100
       ),
     }));
 

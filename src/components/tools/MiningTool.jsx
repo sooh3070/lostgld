@@ -62,13 +62,17 @@ const MiningTool = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const data = await fetchLifeEfficiencyData();
-      const filteredData = data.find(
-        (activity) => activity.name === "4T 채광(만생기 기준)"
-      );
+      try {
+        const response = await fetchLifeEfficiencyData();
+        // API 응답 구조 변경 대응: { data: [], ... } -> data 배열 추출
+        const dataList = response.data || [];
 
-      const updatedData = filteredData
-        ? {
+        const filteredData = dataList.find(
+          (activity) => activity.name === "4T 채광(만생기 기준)"
+        );
+
+        const updatedData = filteredData
+          ? {
             ...filteredData,
             items: filteredData.items.map((item) => ({
               ...item,
@@ -77,10 +81,14 @@ const MiningTool = () => {
             })),
             total_gold: 0,
           }
-        : null;
+          : null;
 
-      setMiningData(updatedData);
-      setIsLoading(false);
+        setMiningData(updatedData);
+      } catch (error) {
+        console.error("채광 데이터 로드 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchData();
@@ -149,7 +157,7 @@ const MiningTool = () => {
       price: item.price,
       totalPrice: Math.floor(
         (Math.floor(toolChartMappedData[item.name] || 0) * (item.price || 0)) /
-          100
+        100
       ),
     }));
 
